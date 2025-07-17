@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎓 모두를 위한 맞춤형 교육 - 2025 서울교육</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+    <style>
+        /* 기본 폰트 및 색상 설정 */
+        body {
+            font-family: 'Pretendard', sans-serif;
+            color: #1e3a8a; /* 기본 글자색 (군청색 계열: slate-800) */
+        }
+        /* 스크롤 애니메이션 부드럽게 */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* 네비게이션 활성 링크 스타일 */
+        .nav-active {
+            color: #f97316; /* Orange-500 */
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50 border-b border-slate-200">
+        <div class="container mx-auto px-4">
+            <nav class="flex items-center justify-between h-16">
+                <a href="#" class="flex items-center gap-2 text-lg font-bold text-sky-700">
+                    <span class="text-2xl">🎓</span>
+                    <span>모두를 위한 맞춤형 교육</span>
+                </a>
+                
+                <div class="hidden lg:flex items-center space-x-6 text-sm font-medium" id="desktop-nav">
+                    </div>
+                
+                <button id="mobile-menu-button" class="lg:hidden text-2xl">
+                    ☰
+                </button>
+            </nav>
+        </div>
+        
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-slate-200 p-4">
+            </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        <div class="max-w-4xl mx-auto">
+            
+            <h1 class="text-3xl md:text-4xl font-extrabold text-center mb-4 text-slate-900">2025 서울교육 주요업무</h1>
+            <p class="text-5xl md:text-6xl font-black text-center text-sky-600 mb-12">모두를 위한 맞춤형 교육</p>
+
+            <section id="intro" class="mb-16 scroll-mt-20">
+                <h2 class="text-3xl font-bold mb-6 border-l-4 border-orange-400 pl-4">🎯 모두를 위한 맞춤형 교육, 왜 필요한가요?</h2>
+                <div class="bg-sky-50 border-l-4 border-sky-400 p-6 rounded-r-lg shadow-sm">
+                    <p class="text-xl font-semibold text-sky-800 mb-4">"모든 학생이 자신만의 특별한 꿈을 실현하고,<br>다양하게 배우며, 미래에 대한 희망을 품고 성장할 수 있도록 지원합니다."</p>
+                    
+                    <div class="grid md:grid-cols-3 gap-4 mt-6">
+                        <div class="bg-white p-4 rounded-lg border border-slate-200">
+                            <h3 class="font-bold text-lg text-sky-700">기초학력 향상</h3>
+                            <p class="text-sm mt-1">학생 진단 및 맞춤교육을 강화하여 모든 학생의 기초 학력을 보장합니다.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-slate-200">
+                            <h3 class="font-bold text-lg text-sky-700">교육격차 해소</h3>
+                            <p class="text-sm mt-1">유보통합, 통합 지원, 교육 여건 개선을 통해 교육 격차를 해소합니다.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-slate-200">
+                             <h3 class="font-bold text-lg text-sky-700">교육기회 보장</h3>
+                            <p class="text-sm mt-1">특수, 유아, 다문화, 학업 중단 위기 학생 지원을 통해 교육 기회를 확대합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="custom-edu" class="mb-16 scroll-mt-20">
+                <h2 class="text-3xl font-bold mb-6 border-l-4 border-orange-400 pl-4">🔍 학생 진단 및 맞춤교육 강화</h2>
+                <div class="space-y-4">
+                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
+                        <button class="accordion-header w-full text-left flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-teal-700">서울지역학습진단성장센터 전환 및 기능 확대</h3>
+                            <span class="accordion-icon text-2xl text-teal-500 transform transition-transform">▼</span>
+                        </button>
+                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-teal-100 space-y-2 text-slate-700">
+                            <p>✅ <strong>심층진단:</strong> 권역별 센터 내 기초학력 심층진단팀 신설, 심층진단 집중학년제 운영 ('27년까지 점진적 확대)</p>
+                            <p>✅ <strong>맞춤지원:</strong> 복합요인(학습, 심리･정서 등) 및 특수요인(난독･난산 등) 학생을 위한 개별 맞춤 프로그램 설계</p>
+                            <p>✅ <strong>협력강화:</strong> 대학, 지자체, 지역기관 연계 '학습도움 네트워크' 구축</p>
+                        </div>
+                    </div>
+                    <div class="bg-teal-50 border-l-4 border-teal-400 p-6 rounded-r-lg">
+                        <h3 class="text-xl font-bold text-teal-800 mb-3">🚀 다층적 학습안전망 추진 단계</h3>
+                        <div class="flex flex-col md:flex-row gap-4">
+                            <div class="flex-1 p-4 bg-white rounded-md"><strong>1단계 (예방):</strong> 정규수업 중 학습부진 누적 예방 (협력수업, 개별화 교육)</div>
+                            <div class="flex-1 p-4 bg-white rounded-md"><strong>2단계 (지원):</strong> 학교 안 기초학력 향상 지원 (교사 전문성 신장, 가정 연계)</div>
+                            <div class="flex-1 p-4 bg-white rounded-md"><strong>3단계 (연계):</strong> 학교 밖 전문기관 연계 맞춤 지원 (심층진단, 특수요인 지원)</div>
+                        </div>
+                        <p class="text-sm mt-4 text-teal-700">* 센터 확대: '25년 권역별 시범 운영 → '27년까지 25개 자치구로 단계적 확대</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="school-level" class="mb-16 scroll-mt-20">
+                <h2 class="text-3xl font-bold mb-6 border-l-4 border-orange-400 pl-4">🏫 학교급별 교육과정 운영 지원</h2>
+                <div class="space-y-4">
+                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
+                        <button class="accordion-header w-full text-left flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-teal-700">🧸 유치원: 유아·놀이중심 교육과정</h3>
+                            <span class="accordion-icon text-2xl text-teal-500 transform transition-transform">▼</span>
+                        </button>
+                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-teal-100 space-y-2 text-slate-700">
+                            <p>✅ <strong>유･초 연계:</strong> 이음교육 확대 (172개원)</p>
+                            <p>✅ <strong>놀이 중심:</strong> 발달 수준 적합 교육과정 현장 점검 강화</p>
+                            <p>✅ <strong>수업 강화:</strong> 시간강사 운영으로 놀이 경험 확장</p>
+                            <p>✅ <strong>디지털 기반:</strong> 중점 유치원 신규 운영 (3개원)</p>
+                            <p>✅ <strong>교사 역량 강화:</strong> 맞춤형 교원 연수 운영 (5종)</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
+                        <button class="accordion-header w-full text-left flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-teal-700">✏️ 초등학교: 학생 주도성 함양</h3>
+                            <span class="accordion-icon text-2xl text-teal-500 transform transition-transform">▼</span>
+                        </button>
+                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-teal-100 space-y-2 text-slate-700">
+                            <p>✅ <strong>2022 개정 교육과정:</strong> 교사 연수 실시 (초3~4 담임 전체)</p>
+                            <p>✅ <strong>학교자율시간:</strong> 매뉴얼 및 장학자료 개발·보급</p>
+                            <p>✅ <strong>학생 참여형 수업:</strong> 초1 적응 활동 강화, 탐구 질문 기반 수업 지원, 연구학교 운영(5교)</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
+                        <button class="accordion-header w-full text-left flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-teal-700">🧑‍🏫 중학교: 학교 특색 반영 및 자유학기</h3>
+                            <span class="accordion-icon text-2xl text-teal-500 transform transition-transform">▼</span>
+                        </button>
+                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-teal-100 space-y-2 text-slate-700">
+                            <p>✅ <strong>2022 개정 교육과정:</strong> 교과별 안내 영상(15교과) 및 연수(12교과) 운영</p>
+                            <p>✅ <strong>학교자율시간:</strong> 지원청 연수 및 컨설팅 지원</p>
+                            <p>✅ <strong>자유학기:</strong> 학교당 평균 1,400만원 예산 지원, 기초소양 함양 및 과정중심 평가 활성화</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
+                        <button class="accordion-header w-full text-left flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-teal-700">🏛️ 고등학교: 고교학점제 현장 안착</h3>
+                            <span class="accordion-icon text-2xl text-teal-500 transform transition-transform">▼</span>
+                        </button>
+                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-teal-100 space-y-2 text-slate-700">
+                            <p>✅ <strong>과목 선택권 확대:</strong> 소인수 선택과목 강사비 지원, 공동교육과정 확대(공유형 55교, 거점형 47교)</p>
+                            <p>✅ <strong>(가칭)서울온라인학교:</strong> '25.3.1. 개교 예정, 시간제 수업 운영</p>
+                            <p>✅ <strong>인프라 구축:</strong> 선진형 교과교실제 신규 도입(21교) 지원</p>
+                            <p>✅ <strong>역량 강화:</strong> 교원 연수, 최소 성취수준 보장지도 역량 강화, 중학생용 워크북 보급</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
+                        <button class="accordion-header w-full text-left flex justify-between items-center">
+                             <h3 class="text-xl font-bold text-teal-700">❤️ 특수교육대상학생 지원</h3>
+                            <span class="accordion-icon text-2xl text-teal-500 transform transition-transform">▼</span>
+                        </button>
+                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-teal-100 space-y-2 text-slate-700">
+                             <p>✅ <strong>맞춤형 수업:</strong> 교사 전문성 강화 연수(2,000명), 지원단 운영</p>
+                            <p>✅ <strong>통합교육:</strong> 일반·특수교사 협력 '더공감교실'(20교), 장애 영유아 통합교육 거점기관 운영</p>
+                            <p>✅ <strong>장애 공감 문화:</strong> 학생 주도 프로젝트, 찾아가는 장애 이해 교실</p>
+                            <p>✅ <strong>맞춤형 지원 강화:</strong> 의료기기 의존 학생 지원, 치료지원비(월 16만원), 보조공학기기 지원 등</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="gap-closing" class="mb-16 scroll-mt-20">
+                <h2 class="text-3xl font-bold mb-6 border-l-4 border-orange-400 pl-4">🤝 교육격차 해소</h2>
+                <div class="space-y-4">
+                     <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
+                        <button class="accordion-header w-full text-left flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-sky-700">유보통합 추진</h3>
+                            <span class="accordion-icon text-2xl text-sky-500 transform transition-transform">▼</span>
+                        </button>
+                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-sky-100 space-y-2 text-slate-700">
+                            <p>✅ <strong>관리체계 일원화:</strong> 영유아 보육 사무·재정 이관 계획 및 로드맵 수립</p>
+                            <p>✅ <strong>(가칭)영·유아학교 시범사업:</strong> 유치원 3개원, 어린이집 4개원 선정, 상향 평준화 모델 모색</p>
+                            <p>✅ <strong>보편적 지원 강화:</strong> 영유아 교사 맞춤형 연수, 전문 상담 프로그램 제공</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
+                        <button class="accordion-header w-full text-left flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-sky-700">🤗 학생 맞춤형 통합 지원</h3>
+                            <span class="accordion-icon text-2xl text-sky-500 transform transition-transform">▼</span>
+                        </button>
+                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-sky-100 space-y-2 text-slate-700">
+                            <p>✅ <strong>통합 지원 체계:</strong> 단위학교 '학생맞춤통합지원팀' 구성 및 운영 지원</p>
+                            <p>✅ <strong>교육복지우선지원:</strong> 거점유치원(11개원), 거점학교(313교), 일반학교(959교) 내실화</p>
+                            <p>✅ <strong>저소득층 지원 강화:</strong> 교육활동지원비 단가 인상, 신입생 입학준비금 지원(초 20만원, 중·고 30만원)</p>
+                        </div>
+                    </div>
+                     <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
+                        <button class="accordion-header w-full text-left flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-sky-700">🌳 개별 맞춤형 교육 여건 조성</h3>
+                            <span class="accordion-icon text-2xl text-sky-500 transform transition-transform">▼</span>
+                        </button>
+                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-sky-100 space-y-2 text-slate-700">
+                            <p>✅ <strong>학급당 학생 수 감축:</strong> 초1·2학년 학급당 20명 이하 배치 추진</p>
+                            <p>✅ <strong>과밀해소:</strong> 자연해소 → 모듈러교실/증설 → 통학구역/학생배정 조정 순으로 추진</p>
+                            <p>✅ <strong>적정규모화:</strong> 통폐합, 이전, 도시형캠퍼스, 통합운영학교 등 유연한 학교 설립·운영</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="opportunity" class="mb-16 scroll-mt-20">
+                <h2 class="text-3xl font-bold mb-6 border-l-4 border-orange-400 pl-4">🌐 교육기회 보장</h2>
+                <div class="space-y-4">
+                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
+                        <button class="accordion-header w-full text-left flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-orange-700">🏫 특수학교 및 특수학급 확대</h3>
+                            <span class="accordion-icon text-2xl text-orange-500 transform transition-transform">▼</span>
+                        </button>
+                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-orange-100 space-y-2 text-slate-700">
+                            <p>✅ <strong>공립 특수학교 설립:</strong> 중랑구(동진학교), 성동구(성진학교) 설립 추진</p>
+                            <p>✅ <strong>추가 설립 검토:</strong> 금천·양천·동대문 등 8개 자치구 및 수요 많은 권역</p>
+                            <p>✅ <strong>특수학급 확대:</strong> '26년까지 1,728학급, '29년까지 1,839학급 설치 목표</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
+                        <button class="accordion-header w-full text-left flex justify-between items-center">
+                             <h3 class="text-xl font-bold text-orange-700">👶 유아교육 기회 확대</h3>
+                             <span class="accordion-icon text-2xl text-orange-500 transform transition-transform">▼</span>
+                        </button>
+                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-orange-100 space-y-2 text-slate-700">
+                             <p>✅ <strong>학부모 부담 경감:</strong> 유아학비 재정 지원(공립 15만원, 사립 35만원 등)</p>
+                            <p>✅ <strong>사립유치원 지원:</strong> 교원기본급보조(월 최대 88만원), 학급운영비(월 51만원)</p>
+                            <p>✅ <strong>공립유치원 신·증설:</strong> 25학년도 2개원 12학급 신설, 1개원 1학급 증설</p>
+                            <p>✅ <strong>에듀케어 확대:</strong> 맞춤형 방과후 과정 활성화</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
+                        <button class="accordion-header w-full text-left flex justify-between items-center">
+                             <h3 class="text-xl font-bold text-orange-700">🌍 다문화교육 지원</h3>
+                             <span class="accordion-icon text-2xl text-orange-500 transform transition-transform">▼</span>
+                        </button>
+                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-orange-100 space-y-2 text-slate-700">
+                             <p>✅ <strong>한국어 교육 강화:</strong> 서울형 한국어 예비학교 신규 운영(2기관), 다문화 특별학급 등</p>
+                            <p>✅ <strong>다+온센터 원스톱 지원:</strong> 학적 생성부터 학습, 심리정서, 진로까지 종합 지원</p>
+                            <p>✅ <strong>다문화 감수성 제고:</strong> 다문화교육 중점학교(50교), 찾아가는 문화다양성교육</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
+                        <button class="accordion-header w-full text-left flex justify-between items-center">
+                             <h3 class="text-xl font-bold text-orange-700">✨ 중단 없는 교육 기회 제공</h3>
+                             <span class="accordion-icon text-2xl text-orange-500 transform transition-transform">▼</span>
+                        </button>
+                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-orange-100 space-y-2 text-slate-700">
+                             <p>✅ <strong>대안교육 기회 확대:</strong> 학교 내 대안교실(100교), 대안교육 위탁교육기관 지원</p>
+                            <p>✅ <strong>학교 밖 청소년 지원:</strong> 도움센터 '친구랑' 운영, '교육 참여 수당' 지급</p>
+                            <p>✅ <strong>북한 배경 학생 지원:</strong> 맞춤형 1:1 멘토링, 학습 멘토링 여름방학 학교 운영</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="conclusion" class="text-center scroll-mt-20">
+                <h2 class="text-3xl font-bold mb-6 text-slate-900">✨ 마치며</h2>
+                <div class="bg-gradient-to-r from-sky-500 to-teal-500 text-white p-8 rounded-xl shadow-lg">
+                    <p class="text-xl font-semibold mb-4">"모두를 위한 맞춤형 교육"은 학생 개개인의 성장과 잠재력 발현을 최우선으로 하며, 교육의 기회 균등과 격차 해소를 위한 서울 교육의 핵심 가치입니다.</p>
+                    <p class="mt-4">선생님들의 적극적인 참여와 노력으로 모든 서울 학생들이 행복하게 배우고 성장할 수 있도록 함께 만들어갑시다.</p>
+                </div>
+            </section>
+
+        </div>
+    </main>
+    
+    <footer class="text-center py-8 text-sm text-slate-500">
+        <p>&copy; 2025 Seoul Metropolitan Office of Education. All Rights Reserved.</p>
+        <p>본 자료는 교사 연수를 위해 재구성된 웹페이지입니다.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            // --- 아코디언 기능 ---
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                const icon = item.querySelector('.accordion-icon');
+
+                header.addEventListener('click', () => {
+                    content.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+                });
+            });
+
+            // --- 네비게이션 동적 생성 ---
+            const mainContent = document.querySelector('.max-w-4xl');
+            const headings = mainContent.querySelectorAll('h2');
+            const desktopNav = document.getElementById('desktop-nav');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            const navLinks = [
+                { emoji: '🎯', title: '필요성', id: 'intro' },
+                { emoji: '🔍', title: '맞춤교육', id: 'custom-edu' },
+                { emoji: '🏫', title: '학교급별 지원', id: 'school-level' },
+                { emoji: '🤝', title: '교육격차 해소', id: 'gap-closing' },
+                { emoji: '🌐', title: '교육기회 보장', id: 'opportunity' },
+                { emoji: '✨', title: '마치며', id: 'conclusion' }
+            ];
+            
+            let desktopNavHTML = '';
+            let mobileNavHTML = '';
+
+            navLinks.forEach(link => {
+                desktopNavHTML += `<a href="#${link.id}" class="nav-link px-3 py-2 rounded-md hover:bg-orange-100 hover:text-orange-600 transition-colors">${link.emoji} ${link.title}</a>`;
+                mobileNavHTML += `<a href="#${link.id}" class="nav-link block px-4 py-3 text-base font-medium hover:bg-orange-100 hover:text-orange-600 rounded-md">${link.emoji} ${link.title}</a>`;
+            });
+            
+            desktopNav.innerHTML = desktopNavHTML;
+            mobileMenu.innerHTML = mobileNavHTML;
+
+            // --- 모바일 메뉴 토글 ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // 모바일 메뉴 링크 클릭 시 메뉴 닫기
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+
+            // --- 스크롤에 따른 네비게이션 활성화 ---
+            const sections = document.querySelectorAll('section');
+            const navAnchors = document.querySelectorAll('.nav-link');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.4
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navAnchors.forEach(a => {
+                            a.classList.remove('nav-active');
+                            if (a.getAttribute('href') === `#${id}`) {
+                                a.classList.add('nav-active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>

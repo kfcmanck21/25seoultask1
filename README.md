@@ -1,1 +1,0 @@
-# 25seoultask1
