@@ -3,357 +3,434 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025 남부 다·더·함 문화다양성 교사 역량 강화 연수</title>
+    <title>문화다양성 교사 역량 강화 연수 계획안</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        /* 가독성이 높은 Noto Sans KR 폰트 적용 */
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            overflow: hidden; /* 스크롤바 숨기기 */
         }
+        /* 4:3 비율 및 화면 중앙 정렬을 위한 스타일 */
+        #presentation-container {
+            position: relative;
+            width: 100vw;
+            height: 75vw; /* 4:3 비율 */
+            max-width: 1280px; /* 최대 너비 제한 */
+            max-height: 960px;
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        /* 슬라이드 기본 스타일 */
         .slide {
-            display: none;
-            width: 100%;
-            height: 100vh;
-            padding: 4rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        .slide.active {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        /* 네비게이션 활성 상태 */
+        .nav-active {
+            color: #ffffff;
+            background-color: #4f46e5; /* indigo-600 */
         }
-        /* Print styles */
-        @media print {
-            body { -webkit-print-color-adjust: exact; }
-            .navigation-bar, .slide-counter, .slide-nav-button {
-                display: none !important;
-            }
-            .slide {
-                display: block !important;
-                height: 100vh;
-                page-break-after: always;
-                padding: 2rem;
-            }
-            .slide:last-child {
-                page-break-after: auto;
-            }
+        /* 터치 영역 스타일 (투명) */
+        .touch-area {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            z-index: 20; /* 다른 요소 위에 오도록 */
         }
+        .touch-left { left: 0; }
+        .touch-right { right: 0; }
+        
+        /* 폰트 크기 조절을 위한 클래스 */
+        .text-base-custom .text-content { font-size: 1rem; line-height: 1.5rem; }
+        .text-base-custom h3 { font-size: 1.875rem; line-height: 2.25rem; }
+        .text-base-custom h4 { font-size: 1.25rem; line-height: 1.75rem; }
+        
+        .text-lg-custom .text-content { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-lg-custom h3 { font-size: 2rem; line-height: 2.5rem; }
+        .text-lg-custom h4 { font-size: 1.375rem; line-height: 1.875rem; }
+
+        .text-xl-custom .text-content { font-size: 1.25rem; line-height: 1.75rem; }
+        .text-xl-custom h3 { font-size: 2.25rem; line-height: 2.5rem; }
+        .text-xl-custom h4 { font-size: 1.5rem; line-height: 2rem; }
     </style>
 </head>
-<body class="bg-white">
+<body class="bg-gray-100 flex items-center justify-center h-screen">
 
-    <nav class="navigation-bar fixed top-0 left-0 right-0 bg-gray-800 text-white p-2 z-10 shadow-lg">
-        <div class="container mx-auto flex justify-center items-center space-x-2 md:space-x-4">
-            <button onclick="goToSlide(0)" class="font-bold text-sm md:text-base hover:text-yellow-300">시작</button>
-            <button onclick="goToSlide(3)" class="font-bold text-sm md:text-base hover:text-yellow-300">Plan 1</button>
-            <button onclick="goToSlide(7)" class="font-bold text-sm md:text-base hover:text-yellow-300">Plan 2</button>
-            <button onclick="goToSlide(11)" class="font-bold text-sm md:text-base hover:text-yellow-300">Plan 3</button>
-            <button onclick="goToSlide(15)" class="font-bold text-sm md:text-base hover:text-yellow-300">Plan 4</button>
-            <button onclick="goToSlide(19)" class="font-bold text-sm md:text-base hover:text-yellow-300">Plan 5</button>
-            <button onclick="goToSlide(23)" class="font-bold text-sm md:text-base hover:text-yellow-300">마무리</button>
-        </div>
-    </nav>
-    
-    <button id="prev-button" class="slide-nav-button fixed left-4 top-1/2 -translate-y-1/2 bg-gray-700 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg hover:bg-gray-900 transition-colors z-20">
-        &larr;
-    </button>
-    <button id="next-button" class="slide-nav-button fixed right-4 top-1/2 -translate-y-1/2 bg-gray-700 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg hover:bg-gray-900 transition-colors z-20">
-        &rarr;
-    </button>
-    <div id="slide-counter" class="slide-counter fixed bottom-4 right-4 bg-black bg-opacity-50 text-white text-sm px-3 py-1 rounded-full z-10"></div>
-
-    <main id="slides-container">
-        <div class="slide active text-center text-gray-800" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIwIDEwODAiPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJnMSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9InJnYmEoMjQwLDI0OCwyNTUsMSkiLz4KPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSJyZ2JhKDIxNywyMzgsMjU1LDEpIi8+CjwvbGluZWFyR3JhZGllbnQ+CjxmaWx0ZXIgaWQ9ImJsdXIiIHg9Ii0yMCUiIHk9Ii0yMCUiIHdpZHRoPSIxNDAlIiBoZWlnaHQ9IjE0MCUiPgo8ZmVHYXVzc2lhbkJsdXIgc3RkRGV2aWF0aW9uPSI1MCIgLz4KPC9maWx0ZXI+CjwvZGVmcz4KPHJlY3Qgd2lkdGg9IjE5MjAiIGhlaWdodD0iMTA4MCIgZmlsbD0idXJsKCNnMSkiLz4KPGNpcmNsZSBjeD0iNTAwIiBjeT0iMjAwIiByPSIzMDAiIGZpbGw9InJnYmEoMTkyLDIyNywyNTUsMC41KSIgZmlsdGVyPSJ1cmwoI2JsdXIpIi8+CjxjaXJjbGUgY3g9IjE0MDAiIGN5PSI4MDAiIHI9IjQwMCIgZmlsbD0icmdiYSgyNTUsMjI0LDE5MiwwLjUpIiBmaWx0ZXI9InVybCgjYmx1cikiLz4KPGNpcmNsZSBjeD0iMjAwIiBjeT0iOTAwIiByPSIyNTAiIGZpbGw9InJnYmEoMjA5LDI1NSwxOTIsMC41KSIgZmlsdGVyPSJ1cmwoI2JsdXIpIi8+Cjwvc3ZnPg=='); background-size: cover; background-position: center;">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">2025 남부 다·더·함 🤝</h1>
-            <h2 class="text-3xl md:text-5xl font-bold">문화다양성 교사 역량 강화 연수</h2>
-            <p class="mt-8 text-xl font-bold">실습 예시 계획안</p>
-        </div>
-
-        <div class="slide text-left text-gray-800">
-            <h2 class="text-3xl font-bold mb-8">🎯 연수 공통 목표 및 개요</h2>
-            <div class="text-xl space-y-6">
-                <p><b class="font-bold">✅ 목표:</b> <b class="font-bold">교사들이 문화다양성 교육의 필요성과 개념을 이해하고, 학교 교육과정에 연계한 실제 수업 사례를 탐색하며, 동료 교원과의 소통을 통해 문화다양성 교육 역량을 강화한다.</b></p>
-                <p><b class="font-bold">🗓️ 일시:</b> <b class="font-bold">2025. X. X. (14:30 ~ 16:30, 2시간)</b></p>
-                <p><b class="font-bold">🏫 장소:</b> <b class="font-bold">학교 내 스마트 교실 또는 연수실</b></p>
-            </div>
-        </div>
-
-        <div class="slide text-left text-gray-800">
-            <h2 class="text-3xl font-bold mb-8">🗺️ 오늘의 연수 순서</h2>
-            <ul class="space-y-4 text-2xl">
-                <li class="font-bold p-3 bg-gray-100 rounded-lg"><b>1️⃣ 문화다양성 기초 이해 및 학교 교육과정 연계 방안 탐색</b></li>
-                <li class="font-bold p-3 bg-gray-100 rounded-lg"><b>2️⃣ 독서와 AI·디지털을 활용한 문화다양성 수업 설계</b></li>
-                <li class="font-bold p-3 bg-gray-100 rounded-lg"><b>3️⃣ 갈등 해결 및 포용적 학교 환경 조성을 위한 문화다양성 교육</b></li>
-                <li class="font-bold p-3 bg-gray-100 rounded-lg"><b>4️⃣ 감수성 신장 및 세계시민의식 함양을 위한 문화다양성 교육</b></li>
-                <li class="font-bold p-3 bg-gray-100 rounded-lg"><b>5️⃣ 예술과 역사를 통한 문화다양성 교육 심화</b></li>
+    <div id="presentation-container" class="text-base-custom">
+        <nav class="absolute top-0 left-0 right-0 bg-white shadow-md z-10">
+            <ul class="flex justify-around font-bold">
+                <li class="flex-1 text-center"><a href="#1" class="nav-link p-3 block transition duration-300 hover:bg-indigo-100">🏠 시작</a></li>
+                <li class="flex-1 text-center"><a href="#4" class="nav-link p-3 block transition duration-300 hover:bg-indigo-100">① 기초이해</a></li>
+                <li class="flex-1 text-center"><a href="#8" class="nav-link p-3 block transition duration-300 hover:bg-indigo-100">② 디지털활용</a></li>
+                <li class="flex-1 text-center"><a href="#12" class="nav-link p-3 block transition duration-300 hover:bg-indigo-100">③ 갈등해결</a></li>
+                <li class="flex-1 text-center"><a href="#16" class="nav-link p-3 block transition duration-300 hover:bg-indigo-100">④ 감수성신장</a></li>
+                <li class="flex-1 text-center"><a href="#20" class="nav-link p-3 block transition duration-300 hover:bg-indigo-100">⑤ 예술/역사</a></li>
             </ul>
+        </nav>
+
+        <div class="fixed top-16 right-4 z-30 flex gap-2">
+            <button id="font-decrease" class="bg-gray-600 text-white font-bold w-10 h-10 rounded-full shadow-lg hover:bg-gray-700 transition">-A</button>
+            <button id="font-increase" class="bg-gray-600 text-white font-bold w-10 h-10 rounded-full shadow-lg hover:bg-gray-700 transition">+A</button>
         </div>
+
+        <main id="slide-container" class="w-full h-full">
+            <section id="slide-1" class="slide w-full h-full bg-white p-12 flex flex-col justify-center items-center text-center">
+                <h2 class="text-5xl font-bold text-indigo-600 mb-4">문화다양성 교사 역량 강화 연수</h2>
+                <p class="text-2xl font-bold text-gray-700">2025 남부 다·더·함 문화다양성 교육 운영 계획(안)</p>
+                <div class="mt-12 text-5xl">🏫 🌍 ✨</div>
+            </section>
+
+            <section id="slide-2" class="slide hidden w-full h-full bg-white p-12">
+                <h3 class="text-3xl font-bold text-gray-800 border-b-4 border-indigo-500 pb-2 mb-8">🎯 연수 공통 목표 및 개요</h3>
+                <div class="text-content space-y-6">
+                    <div class="bg-indigo-50 p-6 rounded-lg">
+                        <h4 class="font-bold text-indigo-800 mb-2">공통 목표</h4>
+                        <p class="font-bold">교사들이 문화다양성 교육의 필요성과 개념을 이해하고, 학교 교육과정에 연계한 실제 수업 사례를 탐색하며, 동료 교원과의 소통을 통해 문화다양성 교육 역량을 강화한다.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="bg-green-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-green-800 mb-2">🕒 공통 일시</h4>
+                            <p class="font-bold">2025. X. X. (14:30 ~ 16:30) (2시간)</p>
+                        </div>
+                        <div class="bg-yellow-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-yellow-800 mb-2">📍 공통 장소</h4>
+                            <p class="font-bold">학교 내 스마트 교실 또는 연수실</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="slide-3" class="slide hidden w-full h-full bg-white p-12">
+                <h3 class="text-3xl font-bold text-gray-800 border-b-4 border-indigo-500 pb-2 mb-8">📖 연수 계획안 (5가지 실습 예시)</h3>
+                <div class="text-content space-y-4 font-bold">
+                    <p class="p-4 bg-gray-100 rounded-lg">1. 문화다양성 기초 이해 및 학교 교육과정 연계 방안 탐색 🌱</p>
+                    <p class="p-4 bg-gray-100 rounded-lg">2. 독서와 AI·디지털을 활용한 문화다양성 수업 설계 💻</p>
+                    <p class="p-4 bg-gray-100 rounded-lg">3. 갈등 해결 및 포용적 학교 환경 조성을 위한 문화다양성 교육 🤝</p>
+                    <p class="p-4 bg-gray-100 rounded-lg">4. 감수성 신장 및 세계시민의식 함양을 위한 문화다양성 교육 🌏</p>
+                    <p class="p-4 bg-gray-100 rounded-lg">5. 예술과 역사를 통한 문화다양성 교육 심화 🎨</p>
+                </div>
+            </section>
+
+            <section id="slide-4" class="slide hidden w-full h-full bg-white p-12">
+                <h3 class="text-3xl font-bold text-indigo-700">1. 다름을 이해하고 함께 성장하는 교육의 시작 🌱</h3>
+                <h4 class="text-xl font-bold text-gray-600 mt-2 mb-6">문화다양성 기초 이해 및 학교 교육과정 연계 방안 탐색</h4>
+                <div class="grid grid-cols-3 gap-4 text-center text-content">
+                    <div class="bg-indigo-100 p-4 rounded-lg"><b class="block text-indigo-800">14:30~15:00 (30분)</b>문화다양성 개념 알기</div>
+                    <div class="bg-indigo-100 p-4 rounded-lg"><b class="block text-indigo-800">15:00~15:40 (40분)</b>교육과정 연계 사례 실습</div>
+                    <div class="bg-indigo-100 p-4 rounded-lg"><b class="block text-indigo-800">15:40~16:20 (40분)</b>교원 의견 나누기 및 토론</div>
+                </div>
+            </section>
+            
+            <section id="slide-5" class="slide hidden w-full h-full bg-white p-12">
+                <h4 class="font-bold text-xl mb-4 text-gray-700">1-1. 문화다양성 개념 알기 📖 (30분)</h4>
+                <ul class="text-content space-y-4 list-disc list-inside font-bold">
+                    <li>「문화다양성 법률」 제2조의 1에 따른 '문화다양성' 정의 이해</li>
+                    <li>이주배경학생 증가 현황, 낮은 문화다양성 교육 비율 등 추진 배경 공유</li>
+                    <li>문화다양성 교육의 4가지 영역(인지, 사회정서, 실천, 문화창조) 목표 소개</li>
+                </ul>
+            </section>
+            
+            <section id="slide-6" class="slide hidden w-full h-full bg-white p-12">
+                <h4 class="font-bold text-xl mb-4 text-gray-700">1-2. 학교 교육과정 연계 사례 나눔 및 실습 ✍️ (40분)</h4>
+                 <ul class="text-content space-y-4 list-disc list-inside font-bold">
+                    <li>사례 소개: '문화다양성 기반 독서교육', '다양성 칸타타! 예술교육'</li>
+                    <li>소그룹 실습: '우리 학급/교과 적용 아이디어' 브레인스토밍</li>
+                    <li>발표 예시: KBS 다국어 전래동화 북콘서트 연계 활동 아이디어</li>
+                </ul>
+            </section>
+            
+            <section id="slide-7" class="slide hidden w-full h-full bg-white p-12">
+                <h4 class="font-bold text-xl mb-4 text-gray-700">1-3. 교원 의견 나누기 및 토론 💬 (40분)</h4>
+                 <ul class="text-content space-y-4 list-disc list-inside font-bold">
+                    <li>토론 주제: '다름을 존중하는 학교 공동체 문화 조성'을 위한 교사의 역할</li>
+                    <li>논의: 문화다양성 교육 활성화를 위한 시사점 및 발전 방안</li>
+                    <li>마무리: 질의응답 및 정리 (10분)</li>
+                </ul>
+            </section>
+
+            <section id="slide-8" class="slide hidden w-full h-full bg-white p-12">
+                <h3 class="text-3xl font-bold text-green-700">2. 디지털 시대, 다문화 감수성을 키우는 스마트 교육 💻🤖</h3>
+                <h4 class="text-xl font-bold text-gray-600 mt-2 mb-6">독서와 AI·디지털을 활용한 문화다양성 수업 설계</h4>
+                <div class="grid grid-cols-3 gap-4 text-center text-content">
+                    <div class="bg-green-100 p-4 rounded-lg"><b class="block text-green-800">14:30~15:00 (30분)</b>문화다양성 발현 양상 이해</div>
+                    <div class="bg-green-100 p-4 rounded-lg"><b class="block text-green-800">15:00~15:40 (40분)</b>독서 및 AI·디지털 연계 실습</div>
+                    <div class="bg-green-100 p-4 rounded-lg"><b class="block text-green-800">15:40~16:20 (40분)</b>미래 교육 환경 심화 토론</div>
+                </div>
+            </section>
+            
+            <section id="slide-9" class="slide hidden w-full h-full bg-white p-12">
+                <h4 class="font-bold text-xl mb-4 text-gray-700">2-1. 문화다양성의 다양한 발현 양상 이해 🌐 (30분)</h4>
+                 <ul class="text-content space-y-4 list-disc list-inside font-bold">
+                    <li>발생 요인: 세대, 지역, 젠더, 계층, 소수자, 종교 등</li>
+                    <li>발현 영역: 언어, 예술, 미디어, 라이프스타일, 교육 등 심층 탐구</li>
+                </ul>
+            </section>
+            
+            <section id="slide-10" class="slide hidden w-full h-full bg-white p-12">
+                <h4 class="font-bold text-xl mb-4 text-gray-700">2-2. 독서교육 및 AI·디지털 연계 수업 실습 📚 (40분)</h4>
+                 <ul class="text-content space-y-4 list-disc list-inside font-bold">
+                    <li>독서교육: 문화다양성 주제 그림책 연계 '질문이 있는 서울형 토론 2.0' 실습</li>
+                    <li>AI·디지털 교육 체험: 통·번역 프로그램, AI 디지털 아트(아트봉봉), AI 마음일기 등</li>
+                </ul>
+            </section>
+            
+            <section id="slide-11" class="slide hidden w-full h-full bg-white p-12">
+                 <h4 class="font-bold text-xl mb-4 text-gray-700">2-3. 심화 토론: 미래 교육 환경에서의 문화다양성 교육 🤔 (40분)</h4>
+                 <ul class="text-content space-y-4 list-disc list-inside font-bold">
+                    <li>토론 주제: 디지털 도구가 문화다양성 교육에 미칠 긍정적/부정적 영향</li>
+                    <li>논의: AI·디지털 도구의 효과적 수업 통합 및 활용 방안</li>
+                    <li>마무리: 질의응답 및 정리 (10분)</li>
+                </ul>
+            </section>
+
+            <section id="slide-12" class="slide hidden w-full h-full bg-white p-12">
+                <h3 class="text-3xl font-bold text-red-700">3. 편견 없는 학교, 갈등을 넘어 공존으로 🤝</h3>
+                <h4 class="text-xl font-bold text-gray-600 mt-2 mb-6">갈등 해결 및 포용적 학교 환경 조성을 위한 문화다양성 교육</h4>
+                <div class="grid grid-cols-3 gap-4 text-center text-content">
+                    <div class="bg-red-100 p-4 rounded-lg"><b class="block text-red-800">14:30~15:00 (30분)</b>현장 문제점 진단</div>
+                    <div class="bg-red-100 p-4 rounded-lg"><b class="block text-red-800">15:00~15:40 (40분)</b>갈등 관리 및 포용 수업 사례</div>
+                    <div class="bg-red-100 p-4 rounded-lg"><b class="block text-red-800">15:40~16:20 (40분)</b>패널 토론: 갈등을 넘어서</div>
+                </div>
+            </section>
+            
+            <section id="slide-13" class="slide hidden w-full h-full bg-white p-12 flex flex-col">
+                <h4 class="font-bold text-xl mb-4 text-gray-700">3-1. 이주배경학생 증가에 따른 현장 문제점 진단 ⚠️ (30분)</h4>
+                <div class="flex-grow flex items-center gap-8">
+                    <div class="w-1/2 text-content space-y-4 font-bold">
+                        <p>📈 이주배경학생 증가 및 문화적 차이로 인한 혐오, 차별, 학교폭력 증가 현황 공유</p>
+                        <p>📣 '모두를 위한 보편적 다양성 교육', '포용 중심 다양성교육'의 시대적 요구 이해</p>
+                    </div>
+                    <div class="w-1/2 h-full">
+                        <canvas id="immigrantStudentChart"></canvas>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="slide-14" class="slide hidden w-full h-full bg-white p-12">
+                <h4 class="font-bold text-xl mb-4 text-gray-700">3-2. 갈등 관리 및 포용적 수업 실천 사례 공유 🎭 (40분)</h4>
+                <ul class="text-content space-y-4 list-disc list-inside font-bold">
+                    <li>사례 공유: '학교로 찾아가는 차이 존중! 차별금지 인권존중교육' 운영 사례</li>
+                    <li>실습: 간단한 역할극을 통한 갈등 상황 대처 방안 실습</li>
+                    <li>사례 소개: '남부다문화특별지원단'의 학교 컨설팅 및 협력적 문제 해결 방안</li>
+                </ul>
+            </section>
+            
+            <section id="slide-15" class="slide hidden w-full h-full bg-white p-12">
+                <h4 class="font-bold text-xl mb-4 text-gray-700">3-3. 패널 토론: 학교 내 갈등을 넘어서는 문화다양성 교육 🎤 (40분)</h4>
+                 <ul class="text-content space-y-4 list-disc list-inside font-bold">
+                    <li>토론 주제: 다문화 밀집학교의 구체적 문제점과 해결 방안</li>
+                    <li>논의: 학교 구성원 인식 전환 및 실질적 지원 방안 (예: 이중언어강사 네트워크 활성화)</li>
+                    <li>마무리: 질의응답 및 정리 (10분)</li>
+                </ul>
+            </section>
+
+            <section id="slide-16" class="slide hidden w-full h-full bg-white p-12">
+                <h3 class="text-3xl font-bold text-yellow-600">4. 공존하는 세계시민을 위한 문화다양성 감수성 키우기 🌏❤️</h3>
+                <h4 class="text-xl font-bold text-gray-600 mt-2 mb-6">감수성 신장 및 세계시민의식 함양을 위한 문화다양성 교육</h4>
+                <div class="grid grid-cols-3 gap-4 text-center text-content">
+                    <div class="bg-yellow-100 p-4 rounded-lg"><b class="block text-yellow-800">14:30~15:00 (30분)</b>감수성 신장의 중요성</div>
+                    <div class="bg-yellow-100 p-4 rounded-lg"><b class="block text-yellow-800">15:00~15:40 (40분)</b>감수성 함양 교육활동 실습</div>
+                    <div class="bg-yellow-100 p-4 rounded-lg"><b class="block text-yellow-800">15:40~16:20 (40분)</b>정책 제안 토론</div>
+                </div>
+            </section>
+
+            <section id="slide-17" class="slide hidden w-full h-full bg-white p-12">
+                 <h4 class="font-bold text-xl mb-4 text-gray-700">4-1. 문화다양성 감수성 신장의 중요성 ✨ (30분)</h4>
+                 <ul class="text-content space-y-4 list-disc list-inside font-bold">
+                    <li>'문화다양성 감수성 강화'와 '공존하는 세계시민의 삶' 연계성 설명</li>
+                    <li>교사 스스로의 문화적 편견 점검</li>
+                    <li>감수성 자가 진단 활동을 통한 교육자 인식 개선 기회 제공</li>
+                </ul>
+            </section>
+
+            <section id="slide-18" class="slide hidden w-full h-full bg-white p-12">
+                <h4 class="font-bold text-xl mb-4 text-gray-700">4-2. 감수성 함양 교육 활동 실습 🧑‍🤝‍🧑 (40분)</h4>
+                 <ul class="text-content space-y-4 list-disc list-inside font-bold">
+                    <li>'다양성 기반 양성평등교육' 동화 활용 사례 실습 (젠더 감수성 함양)</li>
+                    <li>'상호존중 학생자치 내실화' 아이디어 공유: 역사 속 인물을 통한 리더십 탐색</li>
+                    <li>교실 적용 방안 논의</li>
+                </ul>
+            </section>
+
+            <section id="slide-19" class="slide hidden w-full h-full bg-white p-12">
+                 <h4 class="font-bold text-xl mb-4 text-gray-700">4-3. 정책 제안 토론: 학교와 지역사회 연계 🏛️ (40분)</h4>
+                 <ul class="text-content space-y-4 list-disc list-inside font-bold">
+                    <li>토론 주제: 지역사회 협력기관 발굴 및 연계를 통한 감수성 교육 확장 방안</li>
+                    <li>구체적 협력 아이디어 제안 (예: 영등포 '다함께 어울림축제', 구로 '세계축제' 연계)</li>
+                    <li>마무리: 질의응답 및 정리 (10분)</li>
+                </ul>
+            </section>
+
+            <section id="slide-20" class="slide hidden w-full h-full bg-white p-12">
+                <h3 class="text-3xl font-bold text-purple-700">5. 예술과 역사로 만나는 다채로운 세상 🎨🏛️</h3>
+                <h4 class="text-xl font-bold text-gray-600 mt-2 mb-6">예술과 역사를 통한 문화다양성 교육 심화</h4>
+                <div class="grid grid-cols-3 gap-4 text-center text-content">
+                    <div class="bg-purple-100 p-4 rounded-lg"><b class="block text-purple-800">14:30~15:00 (30분)</b>예술/역사적 접근</div>
+                    <div class="bg-purple-100 p-4 rounded-lg"><b class="block text-purple-800">15:00~15:40 (40분)</b>연계 수업 아이디어 구체화</div>
+                    <div class="bg-purple-100 p-4 rounded-lg"><b class="block text-purple-800">15:40~16:20 (40분)</b>융합 교육 토론</div>
+                </div>
+            </section>
+
+            <section id="slide-21" class="slide hidden w-full h-full bg-white p-12">
+                <h4 class="font-bold text-xl mb-4 text-gray-700">5-1. 문화다양성 교육의 예술 및 역사적 접근 🖼️ (30분)</h4>
+                 <ul class="text-content space-y-4 list-disc list-inside font-bold">
+                    <li>예술/역사 교육의 시너지 효과 논의</li>
+                    <li>'문화창조와 표현 영역'(심화 과정)에 대한 이해와 창의적 접근의 중요성 강조</li>
+                </ul>
+            </section>
+
+            <section id="slide-22" class="slide hidden w-full h-full bg-white p-12">
+                <h4 class="font-bold text-xl mb-4 text-gray-700">5-2. 예술 및 역사 연계 수업 아이디어 구체화 🎶 (40분)</h4>
+                 <ul class="text-content space-y-4 list-disc list-inside font-bold">
+                    <li>예술: '다양성 칸타타! 초등예술하나' 연계 가창/연주 동영상 제작 아이디어 논의</li>
+                    <li>역사: '이주배경학생 장소기반 역사교육' 아이디어 공유 (구로/금천/영등포 탐방 후 자료 개발)</li>
+                </ul>
+            </section>
+
+            <section id="slide-23" class="slide hidden w-full h-full bg-white p-12">
+                <h4 class="font-bold text-xl mb-4 text-gray-700">5-3. 문화 간 이해 증진을 위한 융합 교육 토론 🗣️ (40분)</h4>
+                 <ul class="text-content space-y-4 list-disc list-inside font-bold">
+                    <li>토론 주제: 예술/역사 교육이 상호 이해와 존중 증진에 기여하는 방안</li>
+                    <li>논의: 창의적 아이디어 중심의 융합 교육 활성화 방안 (예: 다양한 언어 활용 종합예술활동 발표)</li>
+                    <li>마무리: 질의응답 및 정리 (10분)</li>
+                </ul>
+            </section>
+
+            <section id="slide-24" class="slide hidden w-full h-full bg-white p-12 flex flex-col justify-center items-center text-center">
+                <h2 class="text-5xl font-bold text-indigo-600 mb-4">감사합니다 🙏</h2>
+                <p class="text-2xl font-bold text-gray-700">함께 성장하는 문화다양성 교육, 이제 시작입니다.</p>
+                <div class="mt-8 text-xl font-bold">질의응답</div>
+            </section>
+        </main>
         
-        <div class="slide text-center text-gray-800">
-            <h2 class="text-3xl font-bold mb-6">📊 문화다양성 교육의 필요성</h2>
-            <p class="font-bold mb-8">이주배경학생 비율의 지속적 증가와 함께, 우리 사회의 포용성 지표는 중요한 과제입니다.</p>
-            <div class="w-full h-80 md:h-96">
-                <canvas id="diversityChart"></canvas>
-            </div>
-        </div>
+        <div id="touch-left" class="touch-area touch-left cursor-pointer"></div>
+        <div id="touch-right" class="touch-area touch-right cursor-pointer"></div>
 
-        <div class="slide text-center bg-blue-50">
-            <h2 class="text-4xl font-bold text-blue-800">Plan 1 ☝️</h2>
-            <h3 class="text-3xl font-bold mt-4 text-blue-700">다름을 이해하고 함께 성장하는<br>문화다양성 교육의 시작</h3>
-        </div>
-        <div class="slide text-left text-gray-800">
-            <h3 class="text-2xl font-bold mb-6 text-blue-700">🕒 14:30~15:00 (30분) | 📖 개념 알기 강의</h3>
-            <ul class="list-disc list-inside space-y-3 text-lg">
-                <li><b class="font-bold">「문화다양성법」 제2조의 1 정의 및 '남부 다·더·함' 의미 이해</b></li>
-                <li><b class="font-bold">이주배경학생 증가 현황 등 교육의 시대적 요구 공유 📈</b></li>
-                <li><b class="font-bold">문화다양성 교육의 4가지 영역(인지, 사회정서, 실천, 문화창조) 목표 소개</b></li>
-            </ul>
-        </div>
-        <div class="slide text-left text-gray-800">
-            <h3 class="text-2xl font-bold mb-6 text-blue-700">🕒 15:00~15:40 (40분) | ✍️ 사례 나눔 및 실습</h3>
-            <ul class="list-disc list-inside space-y-3 text-lg">
-                <li><b class="font-bold">실제 교육과정 연계 사례 소개 (독서교육, 예술교육 등) 📚🎨</b></li>
-                <li><b class="font-bold">소그룹 활동: '우리 학급/교과 적용 아이디어' 브레인스토밍</b></li>
-                <li><b class="font-bold">아이디어 발표 (예: KBS 다국어 전래동화 북콘서트 연계 활동)</b></li>
-            </ul>
-        </div>
-        <div class="slide text-left text-gray-800">
-            <h3 class="text-2xl font-bold mb-6 text-blue-700">🕒 15:40~16:30 (50분) | 💬 의견 나누기 및 토론</h3>
-            <ul class="list-disc list-inside space-y-3 text-lg">
-                <li><b class="font-bold">토론 주제: '**다름을 존중하는 학교 공동체 문화 조성**'을 위한 교사의 역할</b></li>
-                <li><b class="font-bold">문화다양성 교육 활성화 시사점 및 발전 방안 자유 토의 🗣️</b></li>
-                <li><b class="font-bold">질의응답 및 마무리 🙋‍♀️</b></li>
-            </ul>
-        </div>
-        
-        <div class="slide text-center bg-green-50">
-            <h2 class="text-4xl font-bold text-green-800">Plan 2 ✌️</h2>
-            <h3 class="text-3xl font-bold mt-4 text-green-700">디지털 시대, 다문화 감수성을 키우는<br>스마트 교육</h3>
-        </div>
-        <div class="slide text-left text-gray-800">
-            <h3 class="text-2xl font-bold mb-6 text-green-700">🕒 14:30~15:00 (30분) | 🌐 다양한 발현 양상 이해</h3>
-            <ul class="list-disc list-inside space-y-3 text-lg">
-                <li><b class="font-bold">문화다양성 발생 요인 탐구 (세대, 젠더, 계층, 종교 등)</b></li>
-                <li><b class="font-bold">문화다양성 발현 영역 탐구 (언어, 예술, 미디어, 라이프스타일 등) 📱</b></li>
-            </ul>
-        </div>
-        <div class="slide text-left text-gray-800">
-            <h3 class="text-2xl font-bold mb-6 text-green-700">🕒 15:00~15:40 (40분) | 💻 독서 및 AI·디지털 실습</h3>
-            <ul class="list-disc list-inside space-y-3 text-lg">
-                <li><b class="font-bold">'질문이 있는 서울형 토론 2.0' 수업 모델 시연 및 실습 💬</b></li>
-                <li><b class="font-bold">**다양한 문화권 맞춤형 AI·디지털 교육** 사례 체험</b></li>
-                <li><b class="font-bold">(예: 통·번역 프로그램, AI 디지털 아트, AI 마음일기 등)</b></li>
-            </ul>
-        </div>
-        <div class="slide text-left text-gray-800">
-            <h3 class="text-2xl font-bold mb-6 text-green-700">🕒 15:40~16:30 (50분) | 🤖 심화 토론</h3>
-            <ul class="list-disc list-inside space-y-3 text-lg">
-                <li><b class="font-bold">토론 주제: AI·디지털 도구의 긍정적/부정적 영향과 교육적 활용 방안</b></li>
-                <li><b class="font-bold">미래 교육 환경에서의 문화다양성 교육 방향성 모색</b></li>
-                <li><b class="font-bold">질의응답 및 마무리 🙋‍♂️</b></li>
-            </ul>
-        </div>
-        
-        <div class="slide text-center bg-yellow-50">
-            <h2 class="text-4xl font-bold text-yellow-800">Plan 3 🤟</h2>
-            <h3 class="text-3xl font-bold mt-4 text-yellow-700">편견 없는 학교,<br>갈등을 넘어 공존으로</h3>
-        </div>
-        <div class="slide text-left text-gray-800">
-            <h3 class="text-2xl font-bold mb-6 text-yellow-700">🕒 14:30~15:00 (30분) | 🧐 현장 문제점 진단</h3>
-            <ul class="list-disc list-inside space-y-3 text-lg">
-                <li><b class="font-bold">이주배경학생 증가에 따른 혐오, 차별, 학교폭력 현황 공유</b></li>
-                <li><b class="font-bold">'모두를 위한 보편적 다양성 교육'의 필요성 인식</b></li>
-                <li><b class="font-bold">**포용 중심 다양성교육 요구**에 대한 시대적 요구 이해 🙏</b></li>
-            </ul>
-        </div>
-        <div class="slide text-left text-gray-800">
-            <h3 class="text-2xl font-bold mb-6 text-yellow-700">🕒 15:00~15:40 (40분) | 🤝 갈등 관리 및 포용 수업 실천</h3>
-            <ul class="list-disc list-inside space-y-3 text-lg">
-                <li><b class="font-bold">**차별 없는 인권존중 통합교육**을 위한 맞춤형 프로그램 사례 공유</b></li>
-                <li><b class="font-bold">역할극을 통한 갈등 상황 대처 방안 실습 🎭</b></li>
-                <li><b class="font-bold">**남부다문화특별지원단**의 학교 컨설팅 사례 소개</b></li>
-            </ul>
-        </div>
-        <div class="slide text-left text-gray-800">
-            <h3 class="text-2xl font-bold mb-6 text-yellow-700">🕒 15:40~16:30 (50분) | 🎤 패널 토론</h3>
-            <ul class="list-disc list-inside space-y-3 text-lg">
-                <li><b class="font-bold">토론 주제: 다문화 밀집학교 문제 해결을 위한 인식 전환 및 지원 방안</b></li>
-                <li><b class="font-bold">패널: 현장 교사, 이중언어강사, 교육 전문가 등</b></li>
-                <li><b class="font-bold">질의응답 및 마무리 🙋‍♀️</b></li>
-            </ul>
-        </div>
-        
-        <div class="slide text-center bg-purple-50">
-            <h2 class="text-4xl font-bold text-purple-800">Plan 4 🖖</h2>
-            <h3 class="text-3xl font-bold mt-4 text-purple-700">공존하는 세계시민을 위한<br>문화다양성 감수성 키우기</h3>
-        </div>
-        <div class="slide text-left text-gray-800">
-            <h3 class="text-2xl font-bold mb-6 text-purple-700">🕒 14:30~15:00 (30분) | ❤️ 감수성 신장 중요성</h3>
-            <ul class="list-disc list-inside space-y-3 text-lg">
-                <li><b class="font-bold">**문화다양성 감수성 강화**와 **세계시민교육**의 연계성 설명 🌍</b></li>
-                <li><b class="font-bold">교사 스스로의 문화적 편견 점검</b></li>
-                <li><b class="font-bold">감수성 자가 진단 활동을 통한 인식 개선 기회 제공</b></li>
-            </ul>
-        </div>
-        <div class="slide text-left text-gray-800">
-            <h3 class="text-2xl font-bold mb-6 text-purple-700">🕒 15:00~15:40 (40분) | 🌱 감수성 함양 교육 활동 실습</h3>
-            <ul class="list-disc list-inside space-y-3 text-lg">
-                <li><b class="font-bold">**다양성 기반 양성평등교육** 동화 활용 사례 실습 (젠더 감수성) 👩‍🔬👨‍🚀</b></li>
-                <li><b class="font-bold">**상호존중 학생자치 내실화**: 역사 속 인물을 통한 리더십 탐색 활동</b></li>
-            </ul>
-        </div>
-        <div class="slide text-left text-gray-800">
-            <h3 class="text-2xl font-bold mb-6 text-purple-700">🕒 15:40~16:30 (50분) | 🏛️ 정책 제안 토론</h3>
-            <ul class="list-disc list-inside space-y-3 text-lg">
-                <li><b class="font-bold">토론 주제: 학교-지역사회 연계를 통한 감수성 교육 확대 방안</b></li>
-                <li><b class="font-bold">지역사회 협력기관 발굴 및 연계 사업 아이디어 제안</b></li>
-                <li><b class="font-bold">(예: 영등포 '다함께 어울림축제', 구로 '세계축제' 연계)</b></li>
-            </ul>
-        </div>
-
-        <div class="slide text-center bg-red-50">
-            <h2 class="text-4xl font-bold text-red-800">Plan 5 🖐️</h2>
-            <h3 class="text-3xl font-bold mt-4 text-red-700">예술과 역사로 만나는 다채로운 세상:<br>문화다양성 융합 교육</h3>
-        </div>
-        <div class="slide text-left text-gray-800">
-            <h3 class="text-2xl font-bold mb-6 text-red-700">🕒 14:30~15:00 (30분) | 🏛️ 예술/역사적 접근</h3>
-            <ul class="list-disc list-inside space-y-3 text-lg">
-                <li><b class="font-bold">문화다양성 교육과 예술/역사 교육의 시너지 효과 논의</b></li>
-                <li><b class="font-bold">**문화창조와 표현 영역**의 중요성 강조 ✨</b></li>
-            </ul>
-        </div>
-        <div class="slide text-left text-gray-800">
-            <h3 class="text-2xl font-bold mb-6 text-red-700">🕒 15:00~15:40 (40분) | 💡 융합 수업 아이디어 구체화</h3>
-            <ul class="list-disc list-inside space-y-3 text-lg">
-                <li><b class="font-bold">**다양성 칸타타! 초등예술하나**: 문화다양성 주제 영상 제작 아이디어 논의 🎶</b></li>
-                <li><b class="font-bold">**이주배경학생 장소기반 역사교육**: 지역사회 역사 탐방 및 자료 개발</b></li>
-            </ul>
-        </div>
-        <div class="slide text-left text-gray-800">
-            <h3 class="text-2xl font-bold mb-6 text-red-700">🕒 15:40~16:30 (50분) | 🎨 융합 교육 토론</h3>
-            <ul class="list-disc list-inside space-y-3 text-lg">
-                <li><b class="font-bold">토론 주제: 예술/역사 교육을 통한 상호 이해 및 존중 증진 방안</b></li>
-                <li><b class="font-bold">'다양한 언어 활용 종합예술활동 발표' 등 창의적 아이디어 논의</b></li>
-                <li><b class="font-bold">질의응답 및 마무리 🙋‍♂️</b></li>
-            </ul>
-        </div>
-        
-        <div class="slide text-center text-gray-800">
-            <h2 class="text-4xl font-bold mb-8">💖 종합 및 마무리</h2>
-            <p class="text-2xl font-bold mb-4"><b>문화다양성 교육은 '다름'을 '틀림'이 아닌 '다채로움'으로 인식하고,</b></p>
-            <p class="text-2xl font-bold mb-4"><b>서로 존중하며 함께 성장하는 학교 문화를 만드는 첫걸음입니다.</b></p>
-            <p class="text-2xl font-bold"><b>오늘 연수가 선생님들의 교육 활동에 새로운 영감을 주었기를 바랍니다.</b></p>
-        </div>
-        
-        <div class="slide text-center text-gray-800">
-            <h2 class="text-5xl font-bold mb-8">❓ Q & A</h2>
-            <p class="text-3xl font-bold">궁금한 점이 있으시면 자유롭게 질문해주세요.</p>
-            <p class="mt-16 text-4xl font-bold">감사합니다!</p>
-        </div>
-
-    </main>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        // 스크립트는 모든 HTML 요소가 로드된 후에 실행되어야 합니다.
+        document.addEventListener('DOMContentLoaded', () => {
             const slides = document.querySelectorAll('.slide');
-            const slideCounter = document.getElementById('slide-counter');
-            const prevButton = document.getElementById('prev-button');
-            const nextButton = document.getElementById('next-button');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const presentationContainer = document.getElementById('presentation-container');
             let currentSlide = 0;
+            let currentFontSize = 0; // 0: base, 1: lg, 2: xl
 
-            function showSlide(index) {
-                slides.forEach((slide, i) => {
-                    slide.classList.toggle('active', i === index);
-                });
+            const fontClasses = ['text-base-custom', 'text-lg-custom', 'text-xl-custom'];
+
+            // 슬라이드와 네비게이션 상태를 업데이트하는 함수
+            const showSlide = (index) => {
+                // 인덱스 범위 확인
+                if (index >= slides.length) {
+                    index = slides.length - 1;
+                } else if (index < 0) {
+                    index = 0;
+                }
+
+                // 모든 슬라이드 숨기기
+                slides.forEach(slide => slide.classList.add('hidden'));
+                // 현재 슬라이드 표시
+                slides[index].classList.remove('hidden');
+                
+                // 네비게이션 링크 활성 상태 업데이트
+                navLinks.forEach(link => link.classList.remove('nav-active'));
+                const activeNavLink = document.querySelector(`a[href="#${slides[index].id.split('-')[1]}"]`);
+                if(activeNavLink) {
+                   activeNavLink.parentElement.parentElement.querySelectorAll('a').forEach(a => a.classList.remove('nav-active'));
+                   activeNavLink.classList.add('nav-active');
+                }
+
                 currentSlide = index;
-                updateCounter();
-            }
+            };
 
-            function updateCounter() {
-                slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
-            }
-            
-            window.goToSlide = function(index) {
-                if (index >= 0 && index < slides.length) {
-                    showSlide(index);
-                }
-            }
-
-            function next() {
-                goToSlide((currentSlide + 1) % slides.length);
-            }
-
-            function prev() {
-                goToSlide((currentSlide - 1 + slides.length) % slides.length);
-            }
-
-            // ====[[ 추가된 부분: 버튼 클릭 이벤트 리스너 ]]====
-            prevButton.addEventListener('click', prev);
-            nextButton.addEventListener('click', next);
-            // =============================================
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight' || e.key === ' ') {
+            // 네비게이션 링크 클릭 이벤트
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    next();
-                } else if (e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    prev();
-                }
+                    const slideIndex = Array.from(slides).findIndex(s => s.id === `slide-${e.target.hash.substring(1)}`);
+                    if(slideIndex !== -1) {
+                        showSlide(slideIndex);
+                    }
+                });
             });
             
-            // Chart.js initialization
-            const ctx = document.getElementById('diversityChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['2021', '2022', '2023', '2024', '2025 (예상)'],
-                    datasets: [{
-                        label: '초중고 이주배경학생 비율 (%)',
-                        data: [2.8, 3.0, 3.2, 3.5, 3.8],
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
+            // 키보드 네비게이션
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    showSlide(currentSlide + 1);
+                } else if (e.key === 'ArrowLeft') {
+                    showSlide(currentSlide - 1);
+                }
+            });
+
+            // 터치/클릭 네비게이션
+            document.getElementById('touch-right').addEventListener('click', () => showSlide(currentSlide + 1));
+            document.getElementById('touch-left').addEventListener('click', () => showSlide(currentSlide - 1));
+
+            // 폰트 크기 조절
+            document.getElementById('font-increase').addEventListener('click', () => {
+                if (currentFontSize < fontClasses.length - 1) {
+                    presentationContainer.classList.remove(fontClasses[currentFontSize]);
+                    currentFontSize++;
+                    presentationContainer.classList.add(fontClasses[currentFontSize]);
+                }
+            });
+
+            document.getElementById('font-decrease').addEventListener('click', () => {
+                if (currentFontSize > 0) {
+                    presentationContainer.classList.remove(fontClasses[currentFontSize]);
+                    currentFontSize--;
+                    presentationContainer.classList.add(fontClasses[currentFontSize]);
+                }
+            });
+
+            // 차트 렌더링 (Slide 13)
+            const chartCanvas = document.getElementById('immigrantStudentChart');
+            if(chartCanvas) {
+                const ctx = chartCanvas.getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['2022', '2023', '2024', '2025 (예상)'],
+                        datasets: [{
+                            label: '이주배경학생 비율 (%)',
+                            data: [5.2, 5.8, 6.5, 7.2],
+                            backgroundColor: 'rgba(239, 68, 68, 0.6)', // red-500
+                            borderColor: 'rgba(220, 38, 38, 1)', // red-600
+                            borderWidth: 1
+                        }]
                     },
-                    {
-                        label: '문화다양성 교육 이수 교원 비율 (%)',
-                        data: [15, 18, 22, 25, 30],
-                        backgroundColor: 'rgba(255, 159, 64, 0.6)',
-                        borderColor: 'rgba(255, 159, 64, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return value + '%'
-                                }
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: '비율 (%)' }
                             }
-                        }
-                    },
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: '연도별 문화다양성 관련 지표 변화',
-                            font: {
-                                size: 18,
-                                weight: 'bold'
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: '이주배경학생 수 증가 추이',
+                                font: { size: 16, weight: 'bold' }
                             }
                         }
                     }
-                }
-            });
+                });
+            }
 
+            // 초기 슬라이드 표시
             showSlide(0);
         });
     </script>
