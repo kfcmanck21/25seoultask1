@@ -30,7 +30,7 @@
         /* Print styles */
         @media print {
             body { -webkit-print-color-adjust: exact; }
-            .navigation-bar, .slide-counter {
+            .navigation-bar, .slide-counter, .slide-nav-button {
                 display: none !important;
             }
             .slide {
@@ -59,6 +59,12 @@
         </div>
     </nav>
     
+    <button id="prev-button" class="slide-nav-button fixed left-4 top-1/2 -translate-y-1/2 bg-gray-700 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg hover:bg-gray-900 transition-colors z-20">
+        &larr;
+    </button>
+    <button id="next-button" class="slide-nav-button fixed right-4 top-1/2 -translate-y-1/2 bg-gray-700 text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold shadow-lg hover:bg-gray-900 transition-colors z-20">
+        &rarr;
+    </button>
     <div id="slide-counter" class="slide-counter fixed bottom-4 right-4 bg-black bg-opacity-50 text-white text-sm px-3 py-1 rounded-full z-10"></div>
 
     <main id="slides-container">
@@ -256,6 +262,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             const slides = document.querySelectorAll('.slide');
             const slideCounter = document.getElementById('slide-counter');
+            const prevButton = document.getElementById('prev-button');
+            const nextButton = document.getElementById('next-button');
             let currentSlide = 0;
 
             function showSlide(index) {
@@ -276,13 +284,26 @@
                 }
             }
 
+            function next() {
+                goToSlide((currentSlide + 1) % slides.length);
+            }
+
+            function prev() {
+                goToSlide((currentSlide - 1 + slides.length) % slides.length);
+            }
+
+            // ====[[ 추가된 부분: 버튼 클릭 이벤트 리스너 ]]====
+            prevButton.addEventListener('click', prev);
+            nextButton.addEventListener('click', next);
+            // =============================================
+
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'ArrowRight' || e.key === ' ') {
                     e.preventDefault();
-                    goToSlide((currentSlide + 1) % slides.length);
+                    next();
                 } else if (e.key === 'ArrowLeft') {
                     e.preventDefault();
-                    goToSlide((currentSlide - 1 + slides.length) % slides.length);
+                    prev();
                 }
             });
             
