@@ -3,360 +3,594 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎓 모두를 위한 맞춤형 교육 - 2025 서울교육</title>
-    
+    <title>2025 남부 문화다양성교육 교원 역량강화 워크숍</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* 기본 폰트 및 색상 설정 */
         body {
-            font-family: 'Pretendard', sans-serif;
-            color: #1e3a8a; /* 기본 글자색 (군청색 계열: slate-800) */
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
-        /* 스크롤 애니메이션 부드럽게 */
-        html {
-            scroll-behavior: smooth;
+        .presentation-container {
+            width: 100%;
+            max-width: 1280px;
+            aspect-ratio: 16 / 9;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            background: #fff;
         }
-        /* 네비게이션 활성 링크 스타일 */
-        .nav-active {
-            color: #f97316; /* Orange-500 */
-            font-weight: 700;
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            transition: opacity 0.5s ease-in-out;
+        }
+        .slide.active {
+            display: flex;
+            opacity: 1;
+        }
+        .slide-title {
+            font-size: 42px;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 2rem;
+            border-bottom: 3px solid #4299e1;
+            padding-bottom: 1rem;
+        }
+        .slide-content {
+            font-size: 28px;
+            font-weight: normal;
+            line-height: 1.6;
+            color: #2d3748;
+            width: 100%;
+            max-width: 900px;
+        }
+        .slide-content ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+        .slide-content li {
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 1rem;
+            font-size: 24px;
+            line-height: 1.5;
+        }
+        .slide-content li::before {
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            content: '\f00c'; /* check icon */
+            position: absolute;
+            left: 0;
+            color: #38a169;
+            font-size: 1.5rem;
+        }
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.3);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover { background-color: rgba(0,0,0,0.6); }
+        #prevBtn { left: 1rem; }
+        #nextBtn { right: 1rem; }
+        #slide-counter {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            font-size: 14px;
+            z-index: 100;
+        }
+        #hamburger-menu-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            color: #4A5568;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        #nav-menu {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 350px;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 999;
+            overflow-y: auto;
+            padding-top: 4rem;
+        }
+        #nav-menu.open {
+            transform: translateX(0);
+        }
+        #nav-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #nav-menu li {
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        #nav-menu li:hover {
+            background-color: #e2e8f0;
+        }
+        #nav-menu li.active {
+            background-color: #4299e1;
+            color: white;
+        }
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 20px;
+            margin-top: 1rem;
+        }
+        .table-custom th, .table-custom td {
+            border: 1px solid #cbd5e0;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .table-custom th {
+            background-color: #edf2f7;
+            font-weight: bold;
+        }
+        .card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left;
         }
     </style>
 </head>
-<body class="bg-slate-50">
+<body>
 
-    <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50 border-b border-slate-200">
-        <div class="container mx-auto px-4">
-            <nav class="flex items-center justify-between h-16">
-                <a href="#" class="flex items-center gap-2 text-lg font-bold text-sky-700">
-                    <span class="text-2xl">🎓</span>
-                    <span>모두를 위한 맞춤형 교육</span>
-                </a>
-                
-                <div class="hidden lg:flex items-center space-x-6 text-sm font-medium" id="desktop-nav">
-                    </div>
-                
-                <button id="mobile-menu-button" class="lg:hidden text-2xl">
-                    ☰
-                </button>
-            </nav>
+    <div class="presentation-container">
+        <div class="slide active" id="slide-1">
+            <h1 class="text-6xl font-extrabold text-blue-800 mb-4 tracking-wide">2025 남부 문화다양성교육</h1>
+            <p class="text-4xl text-gray-700 font-semibold">교원 역량강화 워크숍</p>
+            <p class="text-3xl text-gray-600 font-light mt-4">운영 계획(안)</p>
+            <div class="absolute bottom-10 text-xl text-gray-500">
+                <i class="fas fa-globe-americas mr-2"></i>함께 성장하는 다문화 교육
+            </div>
         </div>
         
-        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-slate-200 p-4">
+        <div class="slide" id="slide-2">
+            <h2 class="slide-title">워크숍 공통 목표 🎯</h2>
+            <div class="slide-content text-left space-y-6">
+                <p class="text-3xl font-bold">교사의 문화다양성 교육 역량 강화</p>
+                <ul class="space-y-4 text-2xl">
+                    <li>✔️ 문화다양성 개념 및 필요성 이해</li>
+                    <li>✔️ 교육과정 연계 수업 사례 탐색 및 실습</li>
+                    <li>✔️ 동료 교원과의 소통을 통한 전문성 신장</li>
+                </ul>
+                <div class="mt-8 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                    <p class="font-bold"><i class="fas fa-clock mr-2"></i>일시: 2025년 X월 X일 (14:30 ~ 16:30)</p>
+                    <p class="font-bold"><i class="fas fa-map-marker-alt mr-2"></i>장소: 학교 내 스마트 교실 또는 연수실</p>
+                </div>
             </div>
-    </header>
-
-    <main class="container mx-auto p-4 md:p-8">
-        <div class="max-w-4xl mx-auto">
-            
-            <h1 class="text-3xl md:text-4xl font-extrabold text-center mb-4 text-slate-900">2025 서울교육 주요업무</h1>
-            <p class="text-5xl md:text-6xl font-black text-center text-sky-600 mb-12">모두를 위한 맞춤형 교육</p>
-
-            <section id="intro" class="mb-16 scroll-mt-20">
-                <h2 class="text-3xl font-bold mb-6 border-l-4 border-orange-400 pl-4">🎯 모두를 위한 맞춤형 교육, 왜 필요한가요?</h2>
-                <div class="bg-sky-50 border-l-4 border-sky-400 p-6 rounded-r-lg shadow-sm">
-                    <p class="text-xl font-semibold text-sky-800 mb-4">"모든 학생이 자신만의 특별한 꿈을 실현하고,<br>다양하게 배우며, 미래에 대한 희망을 품고 성장할 수 있도록 지원합니다."</p>
-                    
-                    <div class="grid md:grid-cols-3 gap-4 mt-6">
-                        <div class="bg-white p-4 rounded-lg border border-slate-200">
-                            <h3 class="font-bold text-lg text-sky-700">기초학력 향상</h3>
-                            <p class="text-sm mt-1">학생 진단 및 맞춤교육을 강화하여 모든 학생의 기초 학력을 보장합니다.</p>
-                        </div>
-                        <div class="bg-white p-4 rounded-lg border border-slate-200">
-                            <h3 class="font-bold text-lg text-sky-700">교육격차 해소</h3>
-                            <p class="text-sm mt-1">유보통합, 통합 지원, 교육 여건 개선을 통해 교육 격차를 해소합니다.</p>
-                        </div>
-                        <div class="bg-white p-4 rounded-lg border border-slate-200">
-                             <h3 class="font-bold text-lg text-sky-700">교육기회 보장</h3>
-                            <p class="text-sm mt-1">특수, 유아, 다문화, 학업 중단 위기 학생 지원을 통해 교육 기회를 확대합니다.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="custom-edu" class="mb-16 scroll-mt-20">
-                <h2 class="text-3xl font-bold mb-6 border-l-4 border-orange-400 pl-4">🔍 학생 진단 및 맞춤교육 강화</h2>
-                <div class="space-y-4">
-                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
-                        <button class="accordion-header w-full text-left flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-teal-700">서울지역학습진단성장센터 전환 및 기능 확대</h3>
-                            <span class="accordion-icon text-2xl text-teal-500 transform transition-transform">▼</span>
-                        </button>
-                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-teal-100 space-y-2 text-slate-700">
-                            <p>✅ <strong>심층진단:</strong> 권역별 센터 내 기초학력 심층진단팀 신설, 심층진단 집중학년제 운영 ('27년까지 점진적 확대)</p>
-                            <p>✅ <strong>맞춤지원:</strong> 복합요인(학습, 심리･정서 등) 및 특수요인(난독･난산 등) 학생을 위한 개별 맞춤 프로그램 설계</p>
-                            <p>✅ <strong>협력강화:</strong> 대학, 지자체, 지역기관 연계 '학습도움 네트워크' 구축</p>
-                        </div>
-                    </div>
-                    <div class="bg-teal-50 border-l-4 border-teal-400 p-6 rounded-r-lg">
-                        <h3 class="text-xl font-bold text-teal-800 mb-3">🚀 다층적 학습안전망 추진 단계</h3>
-                        <div class="flex flex-col md:flex-row gap-4">
-                            <div class="flex-1 p-4 bg-white rounded-md"><strong>1단계 (예방):</strong> 정규수업 중 학습부진 누적 예방 (협력수업, 개별화 교육)</div>
-                            <div class="flex-1 p-4 bg-white rounded-md"><strong>2단계 (지원):</strong> 학교 안 기초학력 향상 지원 (교사 전문성 신장, 가정 연계)</div>
-                            <div class="flex-1 p-4 bg-white rounded-md"><strong>3단계 (연계):</strong> 학교 밖 전문기관 연계 맞춤 지원 (심층진단, 특수요인 지원)</div>
-                        </div>
-                        <p class="text-sm mt-4 text-teal-700">* 센터 확대: '25년 권역별 시범 운영 → '27년까지 25개 자치구로 단계적 확대</p>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="school-level" class="mb-16 scroll-mt-20">
-                <h2 class="text-3xl font-bold mb-6 border-l-4 border-orange-400 pl-4">🏫 학교급별 교육과정 운영 지원</h2>
-                <div class="space-y-4">
-                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
-                        <button class="accordion-header w-full text-left flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-teal-700">🧸 유치원: 유아·놀이중심 교육과정</h3>
-                            <span class="accordion-icon text-2xl text-teal-500 transform transition-transform">▼</span>
-                        </button>
-                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-teal-100 space-y-2 text-slate-700">
-                            <p>✅ <strong>유･초 연계:</strong> 이음교육 확대 (172개원)</p>
-                            <p>✅ <strong>놀이 중심:</strong> 발달 수준 적합 교육과정 현장 점검 강화</p>
-                            <p>✅ <strong>수업 강화:</strong> 시간강사 운영으로 놀이 경험 확장</p>
-                            <p>✅ <strong>디지털 기반:</strong> 중점 유치원 신규 운영 (3개원)</p>
-                            <p>✅ <strong>교사 역량 강화:</strong> 맞춤형 교원 연수 운영 (5종)</p>
-                        </div>
-                    </div>
-                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
-                        <button class="accordion-header w-full text-left flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-teal-700">✏️ 초등학교: 학생 주도성 함양</h3>
-                            <span class="accordion-icon text-2xl text-teal-500 transform transition-transform">▼</span>
-                        </button>
-                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-teal-100 space-y-2 text-slate-700">
-                            <p>✅ <strong>2022 개정 교육과정:</strong> 교사 연수 실시 (초3~4 담임 전체)</p>
-                            <p>✅ <strong>학교자율시간:</strong> 매뉴얼 및 장학자료 개발·보급</p>
-                            <p>✅ <strong>학생 참여형 수업:</strong> 초1 적응 활동 강화, 탐구 질문 기반 수업 지원, 연구학교 운영(5교)</p>
-                        </div>
-                    </div>
-                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
-                        <button class="accordion-header w-full text-left flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-teal-700">🧑‍🏫 중학교: 학교 특색 반영 및 자유학기</h3>
-                            <span class="accordion-icon text-2xl text-teal-500 transform transition-transform">▼</span>
-                        </button>
-                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-teal-100 space-y-2 text-slate-700">
-                            <p>✅ <strong>2022 개정 교육과정:</strong> 교과별 안내 영상(15교과) 및 연수(12교과) 운영</p>
-                            <p>✅ <strong>학교자율시간:</strong> 지원청 연수 및 컨설팅 지원</p>
-                            <p>✅ <strong>자유학기:</strong> 학교당 평균 1,400만원 예산 지원, 기초소양 함양 및 과정중심 평가 활성화</p>
-                        </div>
-                    </div>
-                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
-                        <button class="accordion-header w-full text-left flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-teal-700">🏛️ 고등학교: 고교학점제 현장 안착</h3>
-                            <span class="accordion-icon text-2xl text-teal-500 transform transition-transform">▼</span>
-                        </button>
-                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-teal-100 space-y-2 text-slate-700">
-                            <p>✅ <strong>과목 선택권 확대:</strong> 소인수 선택과목 강사비 지원, 공동교육과정 확대(공유형 55교, 거점형 47교)</p>
-                            <p>✅ <strong>(가칭)서울온라인학교:</strong> '25.3.1. 개교 예정, 시간제 수업 운영</p>
-                            <p>✅ <strong>인프라 구축:</strong> 선진형 교과교실제 신규 도입(21교) 지원</p>
-                            <p>✅ <strong>역량 강화:</strong> 교원 연수, 최소 성취수준 보장지도 역량 강화, 중학생용 워크북 보급</p>
-                        </div>
-                    </div>
-                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
-                        <button class="accordion-header w-full text-left flex justify-between items-center">
-                             <h3 class="text-xl font-bold text-teal-700">❤️ 특수교육대상학생 지원</h3>
-                            <span class="accordion-icon text-2xl text-teal-500 transform transition-transform">▼</span>
-                        </button>
-                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-teal-100 space-y-2 text-slate-700">
-                             <p>✅ <strong>맞춤형 수업:</strong> 교사 전문성 강화 연수(2,000명), 지원단 운영</p>
-                            <p>✅ <strong>통합교육:</strong> 일반·특수교사 협력 '더공감교실'(20교), 장애 영유아 통합교육 거점기관 운영</p>
-                            <p>✅ <strong>장애 공감 문화:</strong> 학생 주도 프로젝트, 찾아가는 장애 이해 교실</p>
-                            <p>✅ <strong>맞춤형 지원 강화:</strong> 의료기기 의존 학생 지원, 치료지원비(월 16만원), 보조공학기기 지원 등</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="gap-closing" class="mb-16 scroll-mt-20">
-                <h2 class="text-3xl font-bold mb-6 border-l-4 border-orange-400 pl-4">🤝 교육격차 해소</h2>
-                <div class="space-y-4">
-                     <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
-                        <button class="accordion-header w-full text-left flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-sky-700">유보통합 추진</h3>
-                            <span class="accordion-icon text-2xl text-sky-500 transform transition-transform">▼</span>
-                        </button>
-                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-sky-100 space-y-2 text-slate-700">
-                            <p>✅ <strong>관리체계 일원화:</strong> 영유아 보육 사무·재정 이관 계획 및 로드맵 수립</p>
-                            <p>✅ <strong>(가칭)영·유아학교 시범사업:</strong> 유치원 3개원, 어린이집 4개원 선정, 상향 평준화 모델 모색</p>
-                            <p>✅ <strong>보편적 지원 강화:</strong> 영유아 교사 맞춤형 연수, 전문 상담 프로그램 제공</p>
-                        </div>
-                    </div>
-                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
-                        <button class="accordion-header w-full text-left flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-sky-700">🤗 학생 맞춤형 통합 지원</h3>
-                            <span class="accordion-icon text-2xl text-sky-500 transform transition-transform">▼</span>
-                        </button>
-                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-sky-100 space-y-2 text-slate-700">
-                            <p>✅ <strong>통합 지원 체계:</strong> 단위학교 '학생맞춤통합지원팀' 구성 및 운영 지원</p>
-                            <p>✅ <strong>교육복지우선지원:</strong> 거점유치원(11개원), 거점학교(313교), 일반학교(959교) 내실화</p>
-                            <p>✅ <strong>저소득층 지원 강화:</strong> 교육활동지원비 단가 인상, 신입생 입학준비금 지원(초 20만원, 중·고 30만원)</p>
-                        </div>
-                    </div>
-                     <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
-                        <button class="accordion-header w-full text-left flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-sky-700">🌳 개별 맞춤형 교육 여건 조성</h3>
-                            <span class="accordion-icon text-2xl text-sky-500 transform transition-transform">▼</span>
-                        </button>
-                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-sky-100 space-y-2 text-slate-700">
-                            <p>✅ <strong>학급당 학생 수 감축:</strong> 초1·2학년 학급당 20명 이하 배치 추진</p>
-                            <p>✅ <strong>과밀해소:</strong> 자연해소 → 모듈러교실/증설 → 통학구역/학생배정 조정 순으로 추진</p>
-                            <p>✅ <strong>적정규모화:</strong> 통폐합, 이전, 도시형캠퍼스, 통합운영학교 등 유연한 학교 설립·운영</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="opportunity" class="mb-16 scroll-mt-20">
-                <h2 class="text-3xl font-bold mb-6 border-l-4 border-orange-400 pl-4">🌐 교육기회 보장</h2>
-                <div class="space-y-4">
-                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
-                        <button class="accordion-header w-full text-left flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-orange-700">🏫 특수학교 및 특수학급 확대</h3>
-                            <span class="accordion-icon text-2xl text-orange-500 transform transition-transform">▼</span>
-                        </button>
-                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-orange-100 space-y-2 text-slate-700">
-                            <p>✅ <strong>공립 특수학교 설립:</strong> 중랑구(동진학교), 성동구(성진학교) 설립 추진</p>
-                            <p>✅ <strong>추가 설립 검토:</strong> 금천·양천·동대문 등 8개 자치구 및 수요 많은 권역</p>
-                            <p>✅ <strong>특수학급 확대:</strong> '26년까지 1,728학급, '29년까지 1,839학급 설치 목표</p>
-                        </div>
-                    </div>
-                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
-                        <button class="accordion-header w-full text-left flex justify-between items-center">
-                             <h3 class="text-xl font-bold text-orange-700">👶 유아교육 기회 확대</h3>
-                             <span class="accordion-icon text-2xl text-orange-500 transform transition-transform">▼</span>
-                        </button>
-                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-orange-100 space-y-2 text-slate-700">
-                             <p>✅ <strong>학부모 부담 경감:</strong> 유아학비 재정 지원(공립 15만원, 사립 35만원 등)</p>
-                            <p>✅ <strong>사립유치원 지원:</strong> 교원기본급보조(월 최대 88만원), 학급운영비(월 51만원)</p>
-                            <p>✅ <strong>공립유치원 신·증설:</strong> 25학년도 2개원 12학급 신설, 1개원 1학급 증설</p>
-                            <p>✅ <strong>에듀케어 확대:</strong> 맞춤형 방과후 과정 활성화</p>
-                        </div>
-                    </div>
-                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
-                        <button class="accordion-header w-full text-left flex justify-between items-center">
-                             <h3 class="text-xl font-bold text-orange-700">🌍 다문화교육 지원</h3>
-                             <span class="accordion-icon text-2xl text-orange-500 transform transition-transform">▼</span>
-                        </button>
-                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-orange-100 space-y-2 text-slate-700">
-                             <p>✅ <strong>한국어 교육 강화:</strong> 서울형 한국어 예비학교 신규 운영(2기관), 다문화 특별학급 등</p>
-                            <p>✅ <strong>다+온센터 원스톱 지원:</strong> 학적 생성부터 학습, 심리정서, 진로까지 종합 지원</p>
-                            <p>✅ <strong>다문화 감수성 제고:</strong> 다문화교육 중점학교(50교), 찾아가는 문화다양성교육</p>
-                        </div>
-                    </div>
-                    <div class="accordion-item bg-white p-5 rounded-lg shadow-sm border border-slate-200">
-                        <button class="accordion-header w-full text-left flex justify-between items-center">
-                             <h3 class="text-xl font-bold text-orange-700">✨ 중단 없는 교육 기회 제공</h3>
-                             <span class="accordion-icon text-2xl text-orange-500 transform transition-transform">▼</span>
-                        </button>
-                        <div class="accordion-content hidden mt-4 pl-2 border-l-2 border-orange-100 space-y-2 text-slate-700">
-                             <p>✅ <strong>대안교육 기회 확대:</strong> 학교 내 대안교실(100교), 대안교육 위탁교육기관 지원</p>
-                            <p>✅ <strong>학교 밖 청소년 지원:</strong> 도움센터 '친구랑' 운영, '교육 참여 수당' 지급</p>
-                            <p>✅ <strong>북한 배경 학생 지원:</strong> 맞춤형 1:1 멘토링, 학습 멘토링 여름방학 학교 운영</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="conclusion" class="text-center scroll-mt-20">
-                <h2 class="text-3xl font-bold mb-6 text-slate-900">✨ 마치며</h2>
-                <div class="bg-gradient-to-r from-sky-500 to-teal-500 text-white p-8 rounded-xl shadow-lg">
-                    <p class="text-xl font-semibold mb-4">"모두를 위한 맞춤형 교육"은 학생 개개인의 성장과 잠재력 발현을 최우선으로 하며, 교육의 기회 균등과 격차 해소를 위한 서울 교육의 핵심 가치입니다.</p>
-                    <p class="mt-4">선생님들의 적극적인 참여와 노력으로 모든 서울 학생들이 행복하게 배우고 성장할 수 있도록 함께 만들어갑시다.</p>
-                </div>
-            </section>
-
         </div>
-    </main>
-    
-    <footer class="text-center py-8 text-sm text-slate-500">
-        <p>&copy; 2025 Seoul Metropolitan Office of Education. All Rights Reserved.</p>
-        <p>본 자료는 교사 연수를 위해 재구성된 웹페이지입니다.</p>
-    </footer>
+
+        <div class="slide" id="slide-3">
+            <h2 class="slide-title">5가지 워크숍 계획안 🖐️</h2>
+            <div class="slide-content text-left space-y-4">
+                <p class="mb-6 font-bold text-3xl">선생님의 필요에 맞는 맞춤형 연수를 제안합니다.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xl">
+                    <div class="p-4 bg-white rounded-lg shadow-md"><strong>1. 기초 이해 및 연계 방안</strong></div>
+                    <div class="p-4 bg-white rounded-lg shadow-md"><strong>2. 독서와 AI·디지털 활용</strong></div>
+                    <div class="p-4 bg-white rounded-lg shadow-md"><strong>3. 갈등 해결 및 포용적 환경</strong></div>
+                    <div class="p-4 bg-white rounded-lg shadow-md"><strong>4. 감수성 신장 및 세계시민의식</strong></div>
+                    <div class="p-4 bg-white rounded-lg shadow-md col-span-1 md:col-span-2"><strong>5. 예술과 역사를 통한 융합 교육</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-4">
+            <h2 class="slide-title">Plan 1. 문화다양성 기초 이해 📖</h2>
+            <p class="slide-content text-3xl font-bold">
+                다름을 이해하고 함께 성장하는<br>문화다양성 교육의 <span class="text-blue-600">첫걸음</span>
+            </p>
+        </div>
+
+        <div class="slide" id="slide-5">
+            <h2 class="slide-title">Plan 1. 세부 내용</h2>
+            <div class="slide-content w-full max-w-4xl">
+                <table class="table-custom text-left">
+                    <thead class="bg-blue-100">
+                        <tr>
+                            <th class="w-1/4">시간</th>
+                            <th class="w-3/4">주요 내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>14:30~15:00</td><td><strong>강의:</strong> 문화다양성 개념과 교육의 필요성 이해</td></tr>
+                        <tr><td>15:00~15:40</td><td><strong>사례/실습:</strong> 학교 교육과정 연계 사례 탐색 및 브레인스토밍</td></tr>
+                        <tr><td>15:40~16:20</td><td><strong>토론:</strong> '다름을 존중하는 학교 문화 조성'을 위한 교사의 역할</td></tr>
+                        <tr><td>16:20~16:30</td><td><strong>마무리:</strong> 질의응답 및 정리</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-6">
+            <h2 class="slide-title">Plan 1. 핵심 활동</h2>
+            <div class="slide-content grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card">
+                    <h3 class="font-bold text-2xl mb-2 text-blue-700"><i class="fas fa-book-reader mr-2"></i>교육과정 연계 사례</h3>
+                    <p class="text-xl">다양성 기반 독서교육, 예술 교육 프로그램 등 실제 운영 사례를 공유하고 우리 학급에 적용할 아이디어를 구상합니다.</p>
+                </div>
+                <div class="card">
+                    <h3 class="font-bold text-2xl mb-2 text-blue-700"><i class="fas fa-users mr-2"></i>교원 의견 나누기</h3>
+                    <p class="text-xl">'다름을 존중하는 학교'를 만들기 위해 교사로서 무엇을 할 수 있을지 함께 고민하고 아이디어를 나눕니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-7">
+            <h2 class="slide-title">Plan 2. 독서와 AI·디지털 활용 💻</h2>
+            <p class="slide-content text-3xl font-bold">
+                디지털 시대를 살아갈 학생들을 위한<br><span class="text-green-600">스마트한 문화다양성 교육</span>
+            </p>
+        </div>
+
+        <div class="slide" id="slide-8">
+            <h2 class="slide-title">Plan 2. 세부 내용</h2>
+            <div class="slide-content w-full max-w-4xl">
+                 <table class="table-custom text-left">
+                    <thead class="bg-green-100">
+                        <tr>
+                            <th class="w-1/4">시간</th>
+                            <th class="w-3/4">주요 내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>14:30~15:00</td><td><strong>강의:</strong> 문화다양성의 다양한 발현 양상 (세대, 지역, 젠더 등) 심층 탐구</td></tr>
+                        <tr><td>15:00~15:40</td><td><strong>실습:</strong> 독서 연계 토론 및 AI·디지털 도구(번역기, 아트 AI 등) 체험</td></tr>
+                        <tr><td>15:40~16:20</td><td><strong>심화 토론:</strong> 디지털 시대, 문화다양성 교육의 방향성과 과제</td></tr>
+                        <tr><td>16:20~16:30</td><td><strong>마무리:</strong> 질의응답 및 정리</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="slide" id="slide-9">
+            <h2 class="slide-title">Plan 2. 핵심 활동</h2>
+            <div class="slide-content grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card">
+                    <h3 class="font-bold text-2xl mb-2 text-green-700"><i class="fas fa-book-open mr-2"></i>독서 토론 실습</h3>
+                    <p class="text-xl">문화다양성 주제 그림책을 활용한 '질문이 있는 서울형 토론 2.0' 수업 모델을 직접 체험하고 적용 방안을 모색합니다.</p>
+                </div>
+                <div class="card">
+                    <h3 class="font-bold text-2xl mb-2 text-green-700"><i class="fas fa-robot mr-2"></i>AI·디지털 도구 체험</h3>
+                    <p class="text-xl">통·번역 프로그램, AI 아트 생성기, AI 마음일기 등 교육 현장에서 바로 활용 가능한 디지털 도구를 직접 사용해봅니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-10">
+            <h2 class="slide-title">Plan 3. 갈등 해결 및 포용 🤝</h2>
+            <p class="slide-content text-3xl font-bold">
+                편견 없는 학교,<br>갈등을 넘어 <span class="text-yellow-600">공존의 공동체</span>로
+            </p>
+        </div>
+
+        <div class="slide" id="slide-11">
+            <h2 class="slide-title">Plan 3. 세부 내용</h2>
+            <div class="slide-content w-full max-w-4xl">
+                 <table class="table-custom text-left">
+                    <thead class="bg-yellow-100">
+                        <tr>
+                            <th class="w-1/4">시간</th>
+                            <th class="w-3/4">주요 내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>14:30~15:00</td><td><strong>문제 진단:</strong> 이주배경학생 증가와 교실 내 갈등 사례 공유</td></tr>
+                        <tr><td>15:00~15:40</td><td><strong>사례/실습:</strong> 차별금지 인권존중교육 사례 및 갈등 상황 역할극</td></tr>
+                        <tr><td>15:40~16:20</td><td><strong>패널 토론:</strong> 학교 내 갈등 해소를 위한 실질적 지원 방안 모색</td></tr>
+                        <tr><td>16:20~16:30</td><td><strong>마무리:</strong> 질의응답 및 정리</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="slide" id="slide-12">
+            <h2 class="slide-title">Plan 3. 핵심 활동</h2>
+            <div class="slide-content grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card">
+                    <h3 class="font-bold text-2xl mb-2 text-yellow-700"><i class="fas fa-theater-masks mr-2"></i>갈등 상황 역할극</h3>
+                    <p class="text-xl">학교 현장에서 발생할 수 있는 구체적인 갈등 상황을 역할극으로 경험하며, 포용적인 대처 및 해결 방안을 모색합니다.</p>
+                </div>
+                <div class="card">
+                    <h3 class="font-bold text-2xl mb-2 text-yellow-700"><i class="fas fa-comments mr-2"></i>패널 토론</h3>
+                    <p class="text-xl">다문화 밀집학교의 실제 사례를 바탕으로 학교 구성원의 인식 개선, 이중언어 강사 활용 등 실질적인 지원 방안을 논의합니다.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide" id="slide-13">
+            <h2 class="slide-title">Plan 4. 감수성 신장 및 세계시민의식 🌍</h2>
+            <p class="slide-content text-3xl font-bold">
+                공존하는 세계시민을 위한<br><span class="text-red-600">문화다양성 감수성 키우기</span>
+            </p>
+        </div>
+
+        <div class="slide" id="slide-14">
+            <h2 class="slide-title">Plan 4. 세부 내용</h2>
+            <div class="slide-content w-full max-w-4xl">
+                 <table class="table-custom text-left">
+                    <thead class="bg-red-100">
+                        <tr>
+                            <th class="w-1/4">시간</th>
+                            <th class="w-3/4">주요 내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>14:30~15:00</td><td><strong>성찰:</strong> 문화다양성 감수성의 중요성 및 교사 자가 진단</td></tr>
+                        <tr><td>15:00~15:40</td><td><strong>실습:</strong> 양성평등교육, 리더십 교육 등 감수성 함양 활동 체험</td></tr>
+                        <tr><td>15:40~16:20</td><td><strong>정책 제안 토론:</strong> 학교와 지역사회를 연계한 감수성 교육 확대 방안</td></tr>
+                        <tr><td>16:20~16:30</td><td><strong>마무리:</strong> 질의응답 및 정리</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-15">
+            <h2 class="slide-title">Plan 4. 핵심 활동</h2>
+            <div class="slide-content grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card">
+                    <h3 class="font-bold text-2xl mb-2 text-red-700"><i class="fas fa-diagnoses mr-2"></i>감수성 자가 진단</h3>
+                    <p class="text-xl">간단한 진단지를 통해 나 자신의 문화적 편견을 점검하고, 교육자로서의 태도를 성찰하는 시간을 갖습니다.</p>
+                </div>
+                <div class="card">
+                    <h3 class="font-bold text-2xl mb-2 text-red-700"><i class="fas fa-handshake mr-2"></i>지역사회 연계 방안 모색</h3>
+                    <p class="text-xl">지역 축제, 기관 등과 연계하여 문화다양성 교육을 학교 밖으로 확장할 수 있는 구체적인 아이디어를 제안하고 공유합니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-16">
+            <h2 class="slide-title">Plan 5. 예술·역사 융합 교육 🎨</h2>
+            <p class="slide-content text-3xl font-bold">
+                예술과 역사로 만나는 다채로운 세상,<br><span class="text-indigo-600">창의적 융합 교육의 힘</span>
+            </p>
+        </div>
+
+        <div class="slide" id="slide-17">
+            <h2 class="slide-title">Plan 5. 세부 내용</h2>
+            <div class="slide-content w-full max-w-4xl">
+                 <table class="table-custom text-left">
+                    <thead class="bg-indigo-100">
+                        <tr>
+                            <th class="w-1/4">시간</th>
+                            <th class="w-3/4">주요 내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>14:30~15:00</td><td><strong>강의:</strong> 예술과 역사를 통한 문화다양성 교육 접근법</td></tr>
+                        <tr><td>15:00~15:40</td><td><strong>아이디어 구체화:</strong> '다양성 칸타타', '장소기반 역사교육' 수업 설계</td></tr>
+                        <tr><td>15:40~16:20</td><td><strong>토론:</strong> 문화 간 이해 증진을 위한 융합 교육 활성화 방안 논의</td></tr>
+                        <tr><td>16:20~16:30</td><td><strong>마무리:</strong> 질의응답 및 정리</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-18">
+            <h2 class="slide-title">Plan 5. 핵심 활동</h2>
+            <div class="slide-content grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card">
+                    <h3 class="font-bold text-2xl mb-2 text-indigo-700"><i class="fas fa-music mr-2"></i>예술 융합 수업 기획</h3>
+                    <p class="text-xl">'다양성 칸타타'처럼 음악, 미술 등 예술 활동과 문화다양성을 융합한 실제 수업 계획을 함께 구상해 봅니다.</p>
+                </div>
+                <div class="card">
+                    <h3 class="font-bold text-2xl mb-2 text-indigo-700"><i class="fas fa-landmark mr-2"></i>장소기반 역사 교육</h3>
+                    <p class="text-xl">우리 지역의 역사적 장소를 활용하여 이주배경학생을 포함한 모든 학생이 함께 배우는 역사 교육 자료 개발을 모색합니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-19">
+            <h2 class="slide-title">참여 희망 워크숍 선호도 조사 (예시) 📊</h2>
+            <div class="slide-content w-full max-w-3xl h-[450px] flex justify-center items-center">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-20">
+            <h2 class="slide-title">PDF 변환 안내 📄</h2>
+            <div class="slide-content text-left space-y-6">
+                <p class="text-xl">
+                    본 슬라이드는 웹 브라우저의 인쇄 기능을 통해 쉽게 PDF로 저장할 수 있습니다.
+                </p>
+                <ol class="list-decimal list-inside space-y-4 text-xl">
+                    <li>인쇄 대화상자 열기 (단축키: <kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">Ctrl</kbd> + <kbd class="px-2 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg">P</kbd>).</li>
+                    <li>'대상' 또는 '프린터'를 <strong>'PDF로 저장'</strong>으로 변경합니다.</li>
+                    <li>'레이아웃'은 <strong>'가로'</strong>로, '추가 설정'에서 <strong>'배경 그래픽'</strong> 옵션을 체크합니다.</li>
+                    <li>저장 버튼을 눌러 파일을 생성합니다.</li>
+                </ol>
+                <p class="text-lg text-red-600 font-bold mt-4">⚠️ 주의: 브라우저에 따라 일부 서식이나 차트가 다르게 표시될 수 있습니다.</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-21">
+            <h2 class="slide-title">질의 및 응답</h2>
+            <p class="text-4xl mt-8 mb-12">선생님들의 소중한 의견을 기다립니다.</p>
+            <p class="text-5xl font-extrabold text-blue-800">감사합니다!</p>
+        </div>
+
+        <button id="prevBtn" class="nav-button"><i class="fas fa-chevron-left"></i></button>
+        <button id="nextBtn" class="nav-button"><i class="fas fa-chevron-right"></i></button>
+        <div id="slide-counter">1 / 21</div>
+        <div id="hamburger-menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav id="nav-menu">
+            <ul>
+                </ul>
+        </nav>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            
-            // --- 아코디언 기능 ---
-            const accordionItems = document.querySelectorAll('.accordion-item');
-            accordionItems.forEach(item => {
-                const header = item.querySelector('.accordion-header');
-                const content = item.querySelector('.accordion-content');
-                const icon = item.querySelector('.accordion-icon');
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const navMenuUl = document.querySelector('#nav-menu ul');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
 
-                header.addEventListener('click', () => {
-                    content.classList.toggle('hidden');
-                    icon.classList.toggle('rotate-180');
+            // Populate Navigation Menu
+            slides.forEach((slide, index) => {
+                const titleEl = slide.querySelector('h1, h2');
+                const titleText = titleEl ? titleEl.innerText.replace(/[\dⅠ-Ⅸ.🖐️-️-🙏]/g, '').trim() : `Slide ${index + 1}`;
+                const li = document.createElement('li');
+                li.textContent = `${index + 1}. ${titleText}`;
+                li.setAttribute('data-slide', index);
+                navMenuUl.appendChild(li);
+            });
+            const navItems = document.querySelectorAll('#nav-menu li');
+            
+            function updateSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+                navItems.forEach((item, i) => {
+                    item.classList.toggle('active', i === index);
+                });
+                document.getElementById('slide-counter').textContent = `${index + 1} / ${totalSlides}`;
+                currentSlide = index;
+            }
+
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateSlide(currentSlide);
+            });
+
+            document.getElementById('prevBtn').addEventListener('click', () => {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateSlide(currentSlide);
+            });
+
+            document.getElementById('hamburger-menu-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.getElementById('nav-menu').classList.toggle('open');
+            });
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    const slideIndex = parseInt(e.target.getAttribute('data-slide'));
+                    updateSlide(slideIndex);
+                    document.getElementById('nav-menu').classList.remove('open');
                 });
             });
-
-            // --- 네비게이션 동적 생성 ---
-            const mainContent = document.querySelector('.max-w-4xl');
-            const headings = mainContent.querySelectorAll('h2');
-            const desktopNav = document.getElementById('desktop-nav');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            const navLinks = [
-                { emoji: '🎯', title: '필요성', id: 'intro' },
-                { emoji: '🔍', title: '맞춤교육', id: 'custom-edu' },
-                { emoji: '🏫', title: '학교급별 지원', id: 'school-level' },
-                { emoji: '🤝', title: '교육격차 해소', id: 'gap-closing' },
-                { emoji: '🌐', title: '교육기회 보장', id: 'opportunity' },
-                { emoji: '✨', title: '마치며', id: 'conclusion' }
-            ];
             
-            let desktopNavHTML = '';
-            let mobileNavHTML = '';
-
-            navLinks.forEach(link => {
-                desktopNavHTML += `<a href="#${link.id}" class="nav-link px-3 py-2 rounded-md hover:bg-orange-100 hover:text-orange-600 transition-colors">${link.emoji} ${link.title}</a>`;
-                mobileNavHTML += `<a href="#${link.id}" class="nav-link block px-4 py-3 text-base font-medium hover:bg-orange-100 hover:text-orange-600 rounded-md">${link.emoji} ${link.title}</a>`;
-            });
-            
-            desktopNav.innerHTML = desktopNavHTML;
-            mobileMenu.innerHTML = mobileNavHTML;
-
-            // --- 모바일 메뉴 토글 ---
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-            
-            // 모바일 메뉴 링크 클릭 시 메뉴 닫기
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                });
+            document.addEventListener('click', (e) => {
+                const navMenu = document.getElementById('nav-menu');
+                const hamburgerBtn = document.getElementById('hamburger-menu-btn');
+                if (navMenu.classList.contains('open') && !navMenu.contains(e.target) && e.target !== hamburgerBtn) {
+                    navMenu.classList.remove('open');
+                }
             });
 
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+                    e.preventDefault();
+                    document.getElementById('nextBtn').click();
+                } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                    e.preventDefault();
+                    document.getElementById('prevBtn').click();
+                }
+            });
 
-            // --- 스크롤에 따른 네비게이션 활성화 ---
-            const sections = document.querySelectorAll('section');
-            const navAnchors = document.querySelectorAll('.nav-link');
+            updateSlide(0);
 
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.4
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        navAnchors.forEach(a => {
-                            a.classList.remove('nav-active');
-                            if (a.getAttribute('href') === `#${id}`) {
-                                a.classList.add('nav-active');
+            // Chart.js example
+            const ctx = document.getElementById('myChart');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['기초 이해', '디지털 활용', '갈등 해결', '감수성 신장', '예술/역사 융합'],
+                        datasets: [{
+                            label: '워크숍 선호도 (%)',
+                            data: [25, 30, 15, 20, 10], // Example data
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.6)',
+                                'rgba(75, 192, 192, 0.6)',
+                                'rgba(255, 206, 86, 0.6)',
+                                'rgba(255, 99, 132, 0.6)',
+                                'rgba(153, 102, 255, 0.6)'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(153, 102, 255, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
                             }
-                        });
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + "%"
+                                    }
+                                }
+                            }
+                        }
                     }
                 });
-            }, observerOptions);
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
+            }
         });
     </script>
 </body>
